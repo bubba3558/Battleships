@@ -22,7 +22,7 @@ public class Ship {
     public Boolean isDestroyed(){
         return condition==0;
     }
-    private void takeHit(){
+    public void takeHit(){
         --condition;
         try {
             if (condition<0)
