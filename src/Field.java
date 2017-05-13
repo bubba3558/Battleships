@@ -10,12 +10,13 @@ public class Field {
         type=FieldType.EMPTY;
         ship=null;
     }
-    public Field( FieldType type) {
-        this.type=type;
-        ship=null;
-    }
+//    public Field( FieldType type) {
+//        this.type=type;
+//        ship=null;
+//    }
     public void setShip(Ship ship){
         this.ship=ship;
+        type=FieldType.WITHSHIP;
     }
     public FieldType getFieldType() {
         return type;

@@ -1,3 +1,5 @@
+import com.sun.javafx.css.Size;
+
 /**
  * Created by Martyna on 10.05.2017.
  */
@@ -19,16 +21,19 @@ public class Ship {
     public int getCondition(){
         return condition;
     }
+    public int getSize(){
+        return size;
+    }
     public Boolean isDestroyed(){
         return condition==0;
     }
     public void takeHit(){
         --condition;
-        try {
-            if (condition<0)
-                throw new Exception("Condition is negative");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try { //dont need
+//            if (condition<0)
+//                throw new Exception("Condition is negative");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 }
