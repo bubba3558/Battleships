@@ -25,6 +25,11 @@ public class Field {
         if (type == FieldType.WITHSHIP)
             ship.takeHit();
         type = FieldType.SHOTED;
-}
+    }
+    public boolean isShipFloating() {
+        if (ship==null || ship.getCondition()<=0)
+           return false;
+        else return true;
+    }
 
 }

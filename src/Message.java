@@ -21,26 +21,36 @@ public class Message {
         this.stillFloating=!sunk;
     }
 
-    public Message getReadyToPlayMessage (){
+    public MessageType getType(){
+        return type;
+    }
+    public int getX(){
+        return x;
+    }
+
+    public int getY(){
+        return y;
+    }
+    public static Message getReadyToPlayMessage (){
         return new Message (MessageType.READYTOPLAY);
     }
 
-    public Message getMissAndAttackMessage ( int x, int y){
+    public static Message getMissAndAttackMessage ( int x, int y){
         return new Message (MessageType.ATTACK, x, y);
     }
 
-    public Message getHitNotSunkMessage (){
+    public static Message getHitNotSunkMessage (){
         return new Message (MessageType.SHIPHIT, false);
     }
 
-    public Message getHitAndSunkMessage (){
+    public static Message getHitAndSunkMessage (){
         return new Message (MessageType.SHIPHIT, true);
     }
 
-    public Message getEndMessage (){
+    public static Message getEndMessage (){
         return new Message (MessageType.GAME_END, true);
     }
-    public Message getErrorMessage (){
+    public static Message getErrorMessage (){
         return new Message (MessageType.ERROR, true);
     }
 }

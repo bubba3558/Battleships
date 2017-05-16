@@ -36,7 +36,15 @@ public class NetworkManager {
             e.printStackTrace();
         }
     }
-
+    public boolean sendMessage(Message message) {
+        try {
+            messageOutput.writeObject(message);
+        } catch (IOException e) {
+            System.err.println("Could not get output to sent message");
+            return false;
+        }
+        return true;
+    }
     private class ServerThread extends Thread {
 
         public void run() {
@@ -69,6 +77,7 @@ public class NetworkManager {
             messageListener.start();
             //debug
             System.out.println("powstal serwer");
+            //nie zamknie sie za szybko?
 
         }
     }
@@ -97,6 +106,8 @@ public class NetworkManager {
                 System.err.println("Can not recognise recived message");
             } catch (IOException e) {
                 System.err.println("Could not get input");
+            } catch (Exception e) {
+                System.err.println("Incorrect message");
             }
 
         }

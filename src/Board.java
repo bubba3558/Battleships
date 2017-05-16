@@ -1,3 +1,4 @@
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import exception.OutOfBoardException;
 
 /**
@@ -69,5 +70,9 @@ public class Board {
 
     public FieldType getFieldType(int x, int y){
         return board[x][y].getFieldType();
+    }
+
+    public Boolean isShipFloating(int x, int y) {
+        return board[x][y].isShipFloating();
     }
 }
