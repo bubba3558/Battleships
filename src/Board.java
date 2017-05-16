@@ -50,10 +50,15 @@ public class Board {
         }
      }
 
-    public void takeHit(int x, int y) throws OutOfBoardException{
+    public boolean takeHit(int x, int y) throws OutOfBoardException{
         if (!isFieldInsideBoard(x, y))
             throw new OutOfBoardException("can not choose field outside the board");
+        if(board[x][y].getFieldType()==FieldType.WITHSHIP) {
+            board[x][y].takeHit();
+            return true;
+        }
         board[x][y].takeHit();
+        return false;
     }
 
     private boolean isFieldInsideBoard(int x, int y){
@@ -62,16 +67,7 @@ public class Board {
         return true;
     }
 
-    public boolean hitField(int x, int y){
-        if(board[x][y].getFieldType()==FieldType.WITHSHIP) {
-            board[x][y].takeHit();
-            return true;
-        }
-//        if (board[x][y].getFieldType()==FieldType.SHOTED){
-//            //    throw new SecondShootException("can not set ship outside the board");
-//            return false;
-//        }
-        board[x][y].takeHit();
-        return false;
+    public FieldType getFieldType(int x, int y){
+        return board[x][y].getFieldType();
     }
 }
