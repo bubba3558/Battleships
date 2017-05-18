@@ -1,3 +1,5 @@
+package Logic;
+
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import exception.OutOfBoardException;
 
@@ -5,7 +7,7 @@ import exception.OutOfBoardException;
  * Created by Martyna on 11.05.2017.
  */
 public class Board {
-    private Field [][] board;
+    private Field[][] board;
     private int height;
     private int width;
     private FieldType Fie;
@@ -30,9 +32,9 @@ public class Board {
         return height;
     }
     public void placeShip(int startX, int startY, Ship ship) throws OutOfBoardException{
-        if (ship.getOrientation()==Orientation.HORIZONTAL)
+        if (ship.getOrientation()== Orientation.HORIZONTAL)
             placeHorizontal(startX, startY, ship);
-        if (ship.getOrientation()==Orientation.VERTICAL)
+        if (ship.getOrientation()== Orientation.VERTICAL)
             placeVertical(startX, startY, ship);
     }
     private void placeHorizontal(int startX, int startY, Ship ship)throws OutOfBoardException{
@@ -54,7 +56,7 @@ public class Board {
     public boolean takeHit(int x, int y) throws OutOfBoardException{
         if (!isFieldInsideBoard(x, y))
             throw new OutOfBoardException("can not choose field outside the board");
-        if(board[x][y].getFieldType()==FieldType.WITHSHIP) {
+        if(board[x][y].getFieldType()== FieldType.WITHSHIP) {
             board[x][y].takeHit();
             return true;
         }

@@ -1,3 +1,5 @@
+package Network;
+
 /**
  * Created by Martyna on 14.05.2017.
  */
@@ -16,9 +18,11 @@ public class Message {
         this.x=x;
         this.y=y;
     }
-    private Message(MessageType type, boolean sunk){ //for hitShip message
+    private Message(MessageType type,int x, int y, boolean sunk){ //for hitShip message
         this.type=type;
         this.stillFloating=!sunk;
+        this.x=x;
+        this.y=y;
     }
 
     public MessageType getType(){
@@ -35,22 +39,23 @@ public class Message {
         return new Message (MessageType.READYTOPLAY);
     }
 
-    public static Message getMissAndAttackMessage ( int x, int y){
+    public static Message getAttackMessage ( int x, int y){
         return new Message (MessageType.ATTACK, x, y);
     }
 
-    public static Message getHitNotSunkMessage (){
-        return new Message (MessageType.SHIPHIT, false);
+    public static Message getMissMessage (){return new Message (MessageType.MISS);}
+    public static Message getHitNotSunkMessage ( int x, int y ){
+        return new Message (MessageType.SHIPHIT, x, y,false);
     }
 
-    public static Message getHitAndSunkMessage (){
-        return new Message (MessageType.SHIPHIT, true);
+    public static Message getHitAndSunkMessage (int x, int y){
+        return new Message (MessageType.SHIPHIT, x, y, true);
     }
 
     public static Message getEndMessage (){
-        return new Message (MessageType.GAME_END, true);
+        return new Message (MessageType.GAME_END);
     }
     public static Message getErrorMessage (){
-        return new Message (MessageType.ERROR, true);
+        return new Message (MessageType.ERROR);
     }
 }

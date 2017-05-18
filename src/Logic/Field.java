@@ -1,3 +1,7 @@
+package Logic;
+
+import Logic.Ship;
+
 /**
  * Created by Martyna on 10.05.2017.
  */
@@ -7,16 +11,16 @@ public class Field {
     private Ship ship;
 
     public Field() {
-        type=FieldType.EMPTY;
+        type= FieldType.EMPTY;
         ship=null;
     }
-//    public Field( FieldType type) {
+//    public Logic.Field( Logic.FieldType type) {
 //        this.type=type;
 //        ship=null;
 //    }
     public void setShip(Ship ship){
         this.ship=ship;
-        type=FieldType.WITHSHIP;
+        type= FieldType.WITHSHIP;
     }
     public FieldType getFieldType() {
         return type;

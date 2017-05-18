@@ -1,3 +1,5 @@
+package Logic;
+
 import com.sun.javafx.css.Size;
 
 /**
