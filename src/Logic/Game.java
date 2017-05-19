@@ -8,8 +8,8 @@ import sample.Controller;
  */
 public class Game {
     private GameStage stage=GameStage.START;
-    private static final int BOARDHIGHT = 15;
-    private static final int BOARDWIDTH = 15;
+    public static final int BOARDHIGHT = 15;
+    public static final int BOARDWIDTH = 15;
     private Board board;
     private int shipNo = 5;
     private int score = 0;
@@ -33,6 +33,9 @@ public class Game {
 
     public boolean isYourTurn() {
         return  isYourTurn;
+    }
+    public boolean takeHit(int x, int y){
+
     }
     public void main(String[] args){
         netManager.run();
@@ -71,5 +74,8 @@ public class Game {
                 break;
         }
         return;
+    }
+    public void attackField(int x, int y) {
+        netManager.sendMessage(Message.getAttackMessage(x, y));
     }
 }
