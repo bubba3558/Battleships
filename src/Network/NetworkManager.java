@@ -12,6 +12,7 @@ import java.net.*;
 public class NetworkManager {
     private Game game;
     private boolean isHost;
+    private boolean connected=false ;
     private int port;
     private String serverIP;
     private ObjectOutputStream messageOutput = null;
@@ -41,10 +42,12 @@ public class NetworkManager {
         }
     }
     public boolean sendMessage(Message message) {
+        if (!connected)
+            return false;
         try {
             messageOutput.writeObject(message);
         } catch (IOException e) {
-            System.err.println("Could not get output to sent message");
+            System.out.println("Could not get output to sent message");
             return false;
         }
         return true;

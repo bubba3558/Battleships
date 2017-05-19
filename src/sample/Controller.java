@@ -23,14 +23,18 @@ public class Controller implements Initializable {
 
     @FXML private TextArea textField;
     @FXML private GridPane myBoard;
-    @FXML private GridPane opponentBoard;
-    private static String SHOTEDCOLOR="#a19595";
+    @FXML private GridPane opponentGrid;
+    private Cell [][]opponentBoard;
+    private static String SHOOTEDCOLOR="#a19595";
+    private static String HITFLOATINGCOLOR="##ff0303";
+    private static String HITSUNKCCOLOR="#930505";
 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        opponentBoard=new Cell[game.BOARDWIDTH][game.BOARDHIGHT];
       //  initMyBoard();
-        //initOpponentBoard();
+        initOpponentBoard();
     }
     public void bottomHandler(ActionEvent event)
     {
@@ -50,8 +54,14 @@ public class Controller implements Initializable {
     public void setMiss(int x, int y ){
 
     }
-    public void setHit(int x, int y ){
-
+    public void setShipHit(int x, int y ){
+        opponentBoard[x][y].setShoot();
+        opponentBoard[x][y].setStyle("-fx-background-color: " + HITFLOATINGCOLOR);
+    }
+    public  void setShipSunkHit(int x, int y){
+        opponentBoard[x][y].setShoot();
+        opponentBoard[x][y].setStyle("-fx-background-color: " + HITSUNKCCOLOR);
+        //ToDO change other ship fields to sunkcolor
     }
 
 
@@ -62,21 +72,23 @@ public class Controller implements Initializable {
         for ( int x = 1; x<=game.BOARDWIDTH;++x){
             for ( int y = 1; y<=game.BOARDWIDTH;++y){
                 Cell cell=new Cell (x,y);
+                opponentGrid.add(cell,x,y);
                 cell.setOnMouseClicked(new EventHandler<MouseEvent>()
                 {
                     @Override
                     public void handle(MouseEvent t) {
-                    if (cell.wasShoted=true){
+                        printMessage("ataaaaak");
+                    if (cell.wasShooted()==true){
                         printMessage("to polebylo juz przez ciebie wybrane");
                         return;
                     }
-                    else{
-                            cell.wasShoted=true;
-                            cell.setStyle("-fx-background-color: "+ SHOTEDCOLOR);
-                            game.attackField(cell.x, cell.y);
+                    else {
+                        cell.setShoot();
+                        cell.setStyle("-fx-background-color: " + SHOOTEDCOLOR);
+                        game.attackField(cell.x, cell.y);
                     }
                 }
-                });;
+                });
             }
         }
     }

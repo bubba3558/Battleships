@@ -20,6 +20,7 @@ public class Game {
     public Game (Boolean isHost, int portNo, String serverIP,Controller controller){
         board=new Board(BOARDHIGHT,BOARDWIDTH);
         netManager=new NetworkManager(this, isHost, portNo, serverIP);
+        netManager.run();
         this.controller=controller;
     }
 
@@ -34,8 +35,17 @@ public class Game {
     public boolean isYourTurn() {
         return  isYourTurn;
     }
-    public boolean takeHit(int x, int y){
-
+    public void takeHit(int x, int y)throws Exception{
+        if (board.takeHit(x, y) ){
+            if(board.isShipFloating(x, y))
+                netManager.sendMessage(Message.getHitNotSunkMessage(x,y));
+            else
+                netManager.sendMessage(Message.getHitAndSunkMessage(x,y));
+        }
+        else {
+            netManager.sendMessage(Message.getMissMessage() );
+            isYourTurn=true;
+        }
     }
     public void main(String[] args){
         netManager.run();
@@ -51,23 +61,16 @@ public class Game {
 
         switch (message.getType()){
             case ATTACK:
-                int x=message.getX(), y=message.getY();
-                if (board.takeHit(x, y) ){
-                    if(board.isShipFloating(x, y))
-                        netManager.sendMessage(Message.getHitNotSunkMessage(x,y));
-                    else
-                        netManager.sendMessage(Message.getHitAndSunkMessage(x,y));
-                }
-                else {
-                    netManager.sendMessage(Message.getMissMessage() );
-                    isYourTurn=true;
-                }
+                takeHit(message.getX(), message.getY() );
                 break;
             case MISS:
                 isYourTurn=false;
                 break;
             case SHIPHIT:
-                controller.setHit( message.getX(), message.getY() );
+                if(message.getFloating()==true)
+                    controller.setShipHit( message.getX(), message.getY() );
+                else
+                    controller.setShipSunkHit( message.getX(), message.getY() );
                 break;
             case GAME_END:
                 controller.printMessage("wygrałeś");

@@ -35,6 +35,7 @@ public class Message {
     public int getY(){
         return y;
     }
+    public boolean getFloating(){return stillFloating;}
     public static Message getReadyToPlayMessage (){
         return new Message (MessageType.READYTOPLAY);
     }
