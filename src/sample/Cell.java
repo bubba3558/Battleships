@@ -6,8 +6,8 @@ import javafx.scene.layout.Pane;
  * Created by Martyna on 19.05.2017.
  */
 public class Cell extends Pane {
-    public static int x;
-    public static int y;
+    public final int x;
+    public final int y;
 
     private boolean wasShooted;
     public Cell(int x, int y){

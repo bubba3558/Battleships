@@ -13,7 +13,7 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/sample.fxml"));
         Parent root = loader.load();
         controller = (Controller)loader.getController();
-        Game game= new Game(false,30,"192.168.0.0", controller);
+        Game game= new Game(false,4444,"127.0.0.1", controller);
         controller.setGame(game);
         Scene scene = new Scene(root);
         stage.setScene(scene);

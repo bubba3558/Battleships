@@ -1,9 +1,11 @@
 package Network;
 
+import java.io.Serializable;
+
 /**
  * Created by Martyna on 14.05.2017.
  */
-public class Message {
+public class Message  implements Serializable {
      private MessageType type;
      private int x;
      private int y;

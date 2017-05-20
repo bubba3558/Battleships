@@ -20,10 +20,12 @@ public class NetworkManager {
     private Socket clientSocket = null;
     private ServerSocket serverSocket = null;
 
-    public NetworkManager(Game game, boolean isHost, int Port, String serverIP) {
+    public NetworkManager(Game game, boolean isHost, int port, String serverIP) {
         this.game = game;
         this.isHost = isHost;
         this.serverIP = serverIP;
+        this.port=port;
+
     }
 
     public void run() {
@@ -48,6 +50,7 @@ public class NetworkManager {
             messageOutput.writeObject(message);
         } catch (IOException e) {
             System.out.println("Could not get output to sent message");
+            e.printStackTrace();
             return false;
         }
         return true;
@@ -57,9 +60,10 @@ public class NetworkManager {
         public void run() {
             if (isHost) {
                 try {
-                    serverSocket = new ServerSocket(port, 1);
-                    serverSocket.setSoTimeout(20000);
+                    serverSocket = new ServerSocket(port);
+                    serverSocket.setSoTimeout(40000);
                     clientSocket = serverSocket.accept();
+                    connected=true;
                 } catch (IOException e) {
                     System.err.println("Server could not made connection");
                     e.printStackTrace();
@@ -67,6 +71,7 @@ public class NetworkManager {
             } else {
                 try {
                     clientSocket = new Socket(serverIP, port);
+                    connected=true;
                 } catch (IOException e) {
                     System.err.println("Could not connect to server");
                     e.printStackTrace();
@@ -75,8 +80,8 @@ public class NetworkManager {
 
 
             try {
-                messageListener = new MessageListener(clientSocket.getInputStream());
                 messageOutput = new ObjectOutputStream(clientSocket.getOutputStream());
+                messageListener = new MessageListener(clientSocket.getInputStream());
             } catch (IOException e) {
                 System.err.println("could not get input or output");
                 closeConnections();
@@ -115,6 +120,7 @@ public class NetworkManager {
                 System.err.println("Could not get input");
             } catch (Exception e) {
                 System.err.println("Incorrect message");
+                e.printStackTrace();
             }
 
         }
