@@ -46,7 +46,7 @@ public class Message  implements Serializable {
         return new Message (MessageType.ATTACK, x, y);
     }
 
-    public static Message getMissMessage (){return new Message (MessageType.MISS);}
+    public static Message getMissMessage ( int x, int y ){return new Message (MessageType.MISS,x, y);}
     public static Message getHitNotSunkMessage ( int x, int y ){
         return new Message (MessageType.SHIPHIT, x, y,false);
     }
@@ -55,8 +55,8 @@ public class Message  implements Serializable {
         return new Message (MessageType.SHIPHIT, x, y, true);
     }
 
-    public static Message getEndMessage (){
-        return new Message (MessageType.GAME_END);
+    public static Message getYouWonMessage (int x, int y){
+        return new Message (MessageType.GAME_END,x,y);
     }
     public static Message getErrorMessage (){
         return new Message (MessageType.ERROR);

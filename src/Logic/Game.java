@@ -12,7 +12,7 @@ public class Game {
     public static final int BOARDWIDTH = 15;
     private Board board;
     private int shipNo = 5;
-    private int score = 0;
+    private int score=30;
     private NetworkManager netManager;
     boolean isYourTurn;
     Controller controller;
@@ -22,6 +22,7 @@ public class Game {
         netManager=new NetworkManager(this, isHost, portNo, serverIP);
         netManager.run();
         this.controller=controller;
+        isYourTurn=isHost;
     }
 
     public GameStage getStage(){
@@ -37,14 +38,23 @@ public class Game {
     }
     public void takeHit(int x, int y)throws Exception{
         if (board.takeHit(x, y) ){
-            if(board.isShipFloating(x, y))
-                netManager.sendMessage(Message.getHitNotSunkMessage(x,y));
+            --score;
+            if(score==0) {
+                netManager.sendMessage(Message.getYouWonMessage(x, y));
+                controller.printMessage("przegrałes");
+            }
+            if(board.isShipFloating(x, y)) {
+                netManager.sendMessage(Message.getHitNotSunkMessage(x, y));
+                controller.setYourShipHit(x, y);
+            }
             else
                 netManager.sendMessage(Message.getHitAndSunkMessage(x,y));
+                controller.setYourShipSunk(x, y);
         }
         else {
-            netManager.sendMessage(Message.getMissMessage() );
+            netManager.sendMessage(Message.getMissMessage(x,y) );
             isYourTurn=true;
+            controller.setOpponentMiss(x,y);
         }
     }
     public void main(String[] args){
@@ -65,6 +75,7 @@ public class Game {
                 break;
             case MISS:
                 isYourTurn=false;
+                controller.setMiss(message.getX(), message.getY());
                 break;
             case SHIPHIT:
                 if(message.getFloating()==true)

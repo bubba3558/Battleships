@@ -9,17 +9,25 @@ public class Cell extends Pane {
     public final int x;
     public final int y;
 
-    private boolean wasShooted;
+    protected boolean wasShoot;
     public Cell(int x, int y){
         this.x=x;
         this.y=y;
-        wasShooted=false;
-        this.setStyle("-fx-background-color: " + "#5b7cea");
+        wasShoot=false;
+        //this.getStyleClass().add("notShoot");}
+       this.setStyle("-fx-background-color: #5b7cea");
+    }
+    public Cell(int x, int y, boolean setColor){
+        this.x=x;
+        this.y=y;
+        wasShoot=false;
+        if(setColor)
+            this.setStyle("-fx-background-color: #5b7cea");
     }
     public void setShoot(){
-        wasShooted=true;
+        wasShoot=true;
     }
-    public boolean wasShooted(){
-        return wasShooted;
+    public boolean wasShoot(){
+        return wasShoot;
     }
 }

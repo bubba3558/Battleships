@@ -1,5 +1,6 @@
 import Logic.Game;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,6 +18,7 @@ public class Main extends Application {
         controller.setGame(game);
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        Platform.setImplicitExit(false);
         stage.show();
     }
     public Controller getController(){

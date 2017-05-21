@@ -12,17 +12,17 @@
 
 <TitledPane prefHeight="869.0" prefWidth="1116.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <content>
-      <GridPane prefHeight="889.0" prefWidth="1125.0">
+      <GridPane prefHeight="824.0" prefWidth="1130.0">
          <columnConstraints>
             <ColumnConstraints />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+            <ColumnConstraints />
+            <ColumnConstraints />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints />
          </rowConstraints>
          <children>
-            <HBox prefHeight="957.0" prefWidth="219.0" />
-            <GridPane hgap="10.0" prefHeight="48.0" prefWidth="903.0" vgap="10.0" GridPane.columnIndex="1">
+            <GridPane hgap="10.0" prefHeight="771.0" prefWidth="1028.0" vgap="10.0" GridPane.columnIndex="2">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -206,12 +206,24 @@
                      <children>
                         <Button mnemonicParsing="false" onMouseClicked="#bottomHandler" prefHeight="54.0" prefWidth="158.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <graphic>
-                              <Label onMouseClicked="#bottomHandler" text="Start" />
+                              <Label onMouseClicked="#bottomHandler" prefHeight="21.0" prefWidth="74.0" text="Gotowy" />
                            </graphic>
                         </Button>
                      </children>
                   </GridPane>
                   <TextArea fx:id="textField" prefHeight="200.0" prefWidth="200.0" text="Ustaw statki" />
+               </children>
+            </GridPane>
+            <GridPane prefHeight="775.0" prefWidth="324.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="573.0" minHeight="10.0" prefHeight="573.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="390.0" minHeight="10.0" prefHeight="220.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <VBox prefHeight="838.0" prefWidth="169.0" />
                </children>
             </GridPane>
          </children>
