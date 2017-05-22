@@ -1,6 +1,7 @@
 package Logic;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
+import exception.CollisionException;
 import exception.OutOfBoardException;
 
 /**
@@ -20,9 +21,9 @@ public class Board {
     public Board (int height, int width) {
         this.width=width;
         this.height=height;
-        board=new Field[width][height];
-        for( int i=0; i<width; ++i)
-            for ( int j=0; j<height; j++)
+        board=new Field[width+1][height+1];
+        for( int i=1; i<=width; ++i)
+            for ( int j=1; j<=height; j++)
                 board[i][j]=new Field();
     }
     public int getWidth(){
@@ -31,27 +32,50 @@ public class Board {
     public int getHeight(){
         return height;
     }
-    public void placeShip(int startX, int startY, Ship ship) throws OutOfBoardException{
+    public boolean placeShip(int startX, int startY, Ship ship) throws OutOfBoardException, CollisionException {
         if (ship.getOrientation()== Orientation.HORIZONTAL)
-            placeHorizontal(startX, startY, ship);
-        if (ship.getOrientation()== Orientation.VERTICAL)
-            placeVertical(startX, startY, ship);
+            return placeHorizontal(startX, startY, ship);
+        else
+            return placeVertical(startX, startY, ship);
     }
-    private void placeHorizontal(int startX, int startY, Ship ship)throws OutOfBoardException{
-        for (int x=startX; x<startX+ship.getSize(); ++x ) {
-            if( !isFieldInsideBoard( x, startY) )
-                throw new OutOfBoardException("can not set ship outside the board");
-            board[x][startY].setShip(ship);
+    private boolean placeHorizontal(int startX, int startY, Ship ship) throws OutOfBoardException, CollisionException {
+        if(isPlaceableHorizontal(startX, startY, ship.getSize())) {
+            for (int x = startX; x < startX + ship.getSize(); ++x) {
+                board[x][startY].setShip(ship);
+            }
+            return true;
         }
+        return false;
     }
-    private void placeVertical(int startX, int startY, Ship ship) throws OutOfBoardException{
+    private boolean isPlaceableHorizontal(int startX, int startY, int shipSize)throws OutOfBoardException, CollisionException {
+        for (int x=startX; x<startX+shipSize; ++x ) {
+            if (!isFieldInsideBoard(x, startY))
+                throw new OutOfBoardException("can not set ship outside the board");
+            if (board[x][startY].getFieldType() == FieldType.WITHSHIP)
+                throw new CollisionException("can not set two ships in the same place");
+        }
+        return true;
+    }
+    private boolean placeVertical(int startX, int startY, Ship ship) throws OutOfBoardException, CollisionException {
+        if(isPlaceableVertical(startX,startY,ship.getSize())) {
+            for (int y = startY; y < startY + ship.getSize(); ++y) {
+                board[startX][y].setShip(ship);
+            }
+            return true;
+        }
+        return false;
+     }
 
-        for (int y=startY; y<startY+ship.getSize(); ++y ) {
+    private boolean isPlaceableVertical(int startX, int startY, int shipSize)throws OutOfBoardException, CollisionException {
+        for (int y=startY; y<startY+shipSize; ++y ){
             if( !isFieldInsideBoard( startX,y) )
                 throw new OutOfBoardException("can not set ship outside the board");
-            board[startX][y].setShip(ship);
+            if(board[startX][y].getFieldType()==FieldType.WITHSHIP)
+                throw new CollisionException("can not set two ships in the same place");
         }
-     }
+        return true;
+    }
+
 
     public boolean takeHit(int x, int y) throws OutOfBoardException{
         if (!isFieldInsideBoard(x, y))

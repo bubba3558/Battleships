@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.*?>
@@ -129,7 +132,7 @@
                               <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="H" GridPane.columnIndex="8" />
                               <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="I" GridPane.columnIndex="9" />
                               <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="J" GridPane.columnIndex="10" />
-                              <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="K" GridPane.columnIndex="11" />
+                              <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="K" textFill="#58648c" GridPane.columnIndex="11" />
                               <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="L" GridPane.columnIndex="12" />
                               <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="M" GridPane.columnIndex="13" />
                               <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="N" GridPane.columnIndex="14" />
@@ -196,22 +199,232 @@
                   </GridPane>
                   <GridPane hgap="5.0" prefHeight="200.0" prefWidth="931.0" vgap="5.0" GridPane.rowIndex="2">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="770.0" minWidth="10.0" prefWidth="766.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="448.0" minWidth="10.0" prefWidth="158.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="815.0" minWidth="10.0" prefWidth="653.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="448.0" minWidth="10.0" prefWidth="247.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints maxHeight="268.0" minHeight="10.0" prefHeight="198.0" vgrow="SOMETIMES" />
                       <RowConstraints maxHeight="268.0" minHeight="10.0" prefHeight="78.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button mnemonicParsing="false" onMouseClicked="#bottomHandler" prefHeight="54.0" prefWidth="158.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <graphic>
-                              <Label onMouseClicked="#bottomHandler" prefHeight="21.0" prefWidth="74.0" text="Gotowy" />
-                           </graphic>
-                        </Button>
+                        <Button mnemonicParsing="false" onAction="#placeShips" onMouseClicked="#placeShips" prefHeight="44.0" prefWidth="195.0" text="Gotowy" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <GridPane>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="476.0" minWidth="10.0" prefWidth="75.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="476.0" minWidth="10.0" prefWidth="158.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="728.0" minWidth="0.0" prefWidth="74.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="728.0" minWidth="10.0" prefWidth="145.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="728.0" minWidth="10.0" prefWidth="226.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Polygon fx:id="triangle3a" fill="DODGERBLUE" onMouseClicked="#placeShipL3a" rotate="-90.0" scaleX="0.3" scaleY="0.3" stroke="BLACK" strokeType="INSIDE" GridPane.rowIndex="3">
+                                 <points>
+                                    <Double fx:value="-50.0" />
+                                    <Double fx:value="40.0" />
+                                    <Double fx:value="50.0" />
+                                    <Double fx:value="40.0" />
+                                    <Double fx:value="0.0" />
+                                    <Double fx:value="-60.0" />
+                                 </points>
+                              </Polygon>
+                              <Polygon fx:id="triangle4a" fill="DODGERBLUE" onMouseClicked="#placeShipL4a" rotate="-90.0" scaleX="0.3" scaleY="0.3" stroke="BLACK" strokeType="INSIDE" GridPane.rowIndex="1">
+                                 <points>
+                                    <Double fx:value="-50.0" />
+                                    <Double fx:value="40.0" />
+                                    <Double fx:value="50.0" />
+                                    <Double fx:value="40.0" />
+                                    <Double fx:value="0.0" />
+                                    <Double fx:value="-60.0" />
+                                 </points>
+                              </Polygon>
+                              <Polygon fx:id="triangle5" fill="DODGERBLUE" layoutX="10.0" onMouseClicked="#placeShipL5" rotate="-90.0" scaleX="0.3" scaleY="0.3" stroke="BLACK" strokeType="INSIDE">
+                                <points>
+                                  <Double fx:value="-50.0" />
+                                  <Double fx:value="40.0" />
+                                  <Double fx:value="50.0" />
+                                  <Double fx:value="40.0" />
+                                  <Double fx:value="0.0" />
+                                  <Double fx:value="-60.0" />
+                                </points>
+                              </Polygon>
+                              <Polygon fx:id="triangle4b" fill="DODGERBLUE" onMouseClicked="#placeShipL4b" rotate="-90.0" scaleX="0.3" scaleY="0.3" stroke="BLACK" strokeType="INSIDE" GridPane.rowIndex="2">
+                                 <points>
+                                    <Double fx:value="-50.0" />
+                                    <Double fx:value="40.0" />
+                                    <Double fx:value="50.0" />
+                                    <Double fx:value="40.0" />
+                                    <Double fx:value="0.0" />
+                                    <Double fx:value="-60.0" />
+                                 </points>
+                              </Polygon>
+                              <Polygon fx:id="triangle3b" fill="DODGERBLUE" layoutX="60.0" layoutY="41.0" onMouseClicked="#placeShipL3b" rotate="-90.0" scaleX="0.3" scaleY="0.3" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2">
+                                 <points>
+                                    <Double fx:value="-50.0" />
+                                    <Double fx:value="40.0" />
+                                    <Double fx:value="50.0" />
+                                    <Double fx:value="40.0" />
+                                    <Double fx:value="0.0" />
+                                    <Double fx:value="-60.0" />
+                                 </points>
+                              </Polygon>
+                              <Polygon fx:id="triangle2b" fill="DODGERBLUE" layoutX="60.0" layoutY="41.0" onMouseClicked="#placeShipL2b" rotate="-90.0" scaleX="0.3" scaleY="0.3" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                 <points>
+                                    <Double fx:value="-50.0" />
+                                    <Double fx:value="40.0" />
+                                    <Double fx:value="50.0" />
+                                    <Double fx:value="40.0" />
+                                    <Double fx:value="0.0" />
+                                    <Double fx:value="-60.0" />
+                                 </points>
+                              </Polygon>
+                              <Polygon fx:id="triangle2c" fill="DODGERBLUE" layoutX="60.0" layoutY="41.0" onMouseClicked="#placeShipL2c" rotate="-90.0" scaleX="0.3" scaleY="0.3" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                 <points>
+                                    <Double fx:value="-50.0" />
+                                    <Double fx:value="40.0" />
+                                    <Double fx:value="50.0" />
+                                    <Double fx:value="40.0" />
+                                    <Double fx:value="0.0" />
+                                    <Double fx:value="-60.0" />
+                                 </points>
+                              </Polygon>
+                              <Polygon fx:id="triangle2a" fill="DODGERBLUE" layoutX="60.0" layoutY="41.0" onMouseClicked="#placeShipL2a" rotate="-90.0" scaleX="0.3" scaleY="0.3" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                 <points>
+                                    <Double fx:value="-50.0" />
+                                    <Double fx:value="40.0" />
+                                    <Double fx:value="50.0" />
+                                    <Double fx:value="40.0" />
+                                    <Double fx:value="0.0" />
+                                    <Double fx:value="-60.0" />
+                                 </points>
+                              </Polygon>
+                              <HBox alignment="CENTER_LEFT" prefHeight="41.0" prefWidth="137.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="40.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="40.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="70.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="10.0" layoutY="16.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="41.0" prefWidth="23.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="40.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="70.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="40.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="70.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="436.0" GridPane.columnIndex="3">
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="40.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </GridPane>
+                        <GridPane alignment="CENTER" prefHeight="163.0" prefWidth="314.0" GridPane.columnIndex="1">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="99.0" minWidth="0.0" prefWidth="96.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="104.0" minWidth="0.0" prefWidth="81.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="91.0" minWidth="10.0" prefWidth="68.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="40.0" stroke="BLACK" strokeType="INSIDE" translateX="10.0" width="40.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Polygon fx:id="horizTriangle" fill="DODGERBLUE" rotate="-90.0" scaleX="0.4" scaleY="0.4" stroke="BLACK" strokeType="INSIDE" translateX="37.0" GridPane.rowIndex="1">
+                                <points>
+                                  <Double fx:value="-50.0" />
+                                  <Double fx:value="40.0" />
+                                  <Double fx:value="50.0" />
+                                  <Double fx:value="40.0" />
+                                  <Double fx:value="0.0" />
+                                  <Double fx:value="-60.0" />
+                                </points>
+                              </Polygon>
+                              <Polygon fx:id="verticTriangle" fill="DODGERBLUE" opacity="0.0" scaleX="0.4" scaleY="0.4" stroke="BLACK" strokeType="INSIDE" translateX="-20.0" translateY="15.0" GridPane.columnIndex="1">
+                                <points>
+                                  <Double fx:value="-50.0" />
+                                  <Double fx:value="40.0" />
+                                  <Double fx:value="50.0" />
+                                  <Double fx:value="40.0" />
+                                  <Double fx:value="0.0" />
+                                  <Double fx:value="-60.0" />
+                                </points>
+                              </Polygon>
+                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changeOrientation" prefHeight="33.0" prefWidth="68.0" text="Zmien" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                              <Label prefHeight="21.0" prefWidth="92.0" text="Orientacja" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="orientationText" prefHeight="20.0" prefWidth="132.0" text="pozioma" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </GridPane>
+                        <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+                           <children>
+                              <Label prefHeight="35.0" prefWidth="273.0" text="Rufa znajdzie sie na polu:">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="pointText" prefHeight="35.0" prefWidth="80.0" text="-">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
                      </children>
                   </GridPane>
-                  <TextArea fx:id="textField" prefHeight="200.0" prefWidth="200.0" text="Ustaw statki" />
+                  <TextArea fx:id="textField" prefHeight="200.0" prefWidth="200.0" text="Ustaw statki&#10;Aby ustawić statek wybierz jego orientację, a następnie kliknij na jego rufę. &#10;Następnie wybierz na swojej mapie pole gdzie ma znajdować się rufa.&#10;" />
                </children>
             </GridPane>
             <GridPane prefHeight="775.0" prefWidth="324.0">

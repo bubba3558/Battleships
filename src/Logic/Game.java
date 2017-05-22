@@ -1,6 +1,8 @@
 package Logic;
 
 import Network.*;
+import exception.CollisionException;
+import exception.OutOfBoardException;
 import sample.Controller;
 
 /**
@@ -11,10 +13,13 @@ public class Game {
     public static final int BOARDHIGHT = 15;
     public static final int BOARDWIDTH = 15;
     private Board board;
-    private int shipNo = 5;
-    private int score=30;
+    private int shipNo = 0;
+    private int score=0;
     private NetworkManager netManager;
     boolean isYourTurn;
+    boolean youAreReady=false;
+    boolean opponentIsReady=false;
+    boolean gamePrepared=false;
     Controller controller;
 
     public Game (Boolean isHost, int portNo, String serverIP,Controller controller){
@@ -83,13 +88,43 @@ public class Game {
                 else
                     controller.setShipSunkHit( message.getX(), message.getY() );
                 break;
+            case READYTOPLAY:
+                opponentIsReady=true;
+                controller.printMessage("przeciwnik ustawil statki");
+                checkIfGameIsReady();
+                break;
             case GAME_END:
                 controller.printMessage("wygrałeś");
+                gamePrepared=false;
                 break;
         }
         return;
     }
     public void attackField(int x, int y) {
         netManager.sendMessage(Message.getAttackMessage(x, y));
+    }
+    private void checkIfGameIsReady() {
+        if (youAreReady && opponentIsReady) {
+            gamePrepared = true;
+            if(isYourTurn())
+                controller.printMessage("rozpocznij gre");
+            else
+                controller.printMessage("poczekaj na ruch przeciwnika");
+        }
+    }
+    public void sendReadyMessage(){
+        netManager.sendMessage(Message.getReadyToPlayMessage());
+        youAreReady=true;
+        checkIfGameIsReady();
+    }
+    public boolean isPrepared(){
+        return gamePrepared;
+    }
+    public void addShipToBoard(Orientation orientation,int length, int startX, int startY )throws OutOfBoardException, CollisionException {
+        Ship ship =new Ship(length, orientation);
+        if(board.placeShip(startX, startY, ship) ){
+            ++shipNo;
+            score+=ship.getSize();
+        }
     }
 }
