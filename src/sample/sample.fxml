@@ -23,15 +23,16 @@
          </columnConstraints>
          <rowConstraints>
             <RowConstraints />
+            <RowConstraints />
          </rowConstraints>
          <children>
-            <GridPane hgap="10.0" prefHeight="771.0" prefWidth="1028.0" vgap="10.0" GridPane.columnIndex="2">
+            <GridPane hgap="10.0" prefHeight="771.0" prefWidth="1028.0" vgap="10.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints maxHeight="202.0" minHeight="0.0" prefHeight="101.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="659.0" minHeight="10.0" prefHeight="472.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="202.0" minHeight="0.0" prefHeight="43.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="659.0" minHeight="10.0" prefHeight="438.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="304.0" minHeight="10.0" prefHeight="228.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
@@ -41,16 +42,16 @@
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints maxHeight="238.0" minHeight="8.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="491.0" minHeight="10.0" prefHeight="433.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="238.0" minHeight="8.0" prefHeight="24.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="491.0" minHeight="10.0" prefHeight="392.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #949cb5;">
+                        <Pane prefHeight="60.0" prefWidth="448.0" style="-fx-background-color: #949cb5;">
                            <children>
-                              <Label alignment="CENTER" prefHeight="21.0" prefWidth="462.0" text="Twoja plansza" textAlignment="CENTER" />
+                              <Label alignment="CENTER" layoutX="-6.0" layoutY="-6.0" prefHeight="34.0" prefWidth="463.0" text="Twoja plansza" textAlignment="CENTER" />
                            </children>
                         </Pane>
-                        <GridPane fx:id="myGrid" hgap="2.0" vgap="2.0" GridPane.rowIndex="1">
+                        <GridPane fx:id="myGrid" hgap="2.0" prefHeight="366.0" prefWidth="448.0" vgap="2.0" GridPane.rowIndex="1">
                           <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -207,7 +208,7 @@
                       <RowConstraints maxHeight="268.0" minHeight="10.0" prefHeight="78.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button mnemonicParsing="false" onAction="#placeShips" onMouseClicked="#placeShips" prefHeight="44.0" prefWidth="195.0" text="Gotowy" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="195.0" text="Gotowy" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <GridPane>
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="476.0" minWidth="10.0" prefWidth="75.0" />
@@ -410,11 +411,6 @@
                         </GridPane>
                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                            <children>
-                              <Label prefHeight="35.0" prefWidth="273.0" text="Rufa znajdzie sie na polu:">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                              </Label>
                               <Label fx:id="pointText" prefHeight="35.0" prefWidth="80.0" text="-">
                                  <font>
                                     <Font size="24.0" />
@@ -424,10 +420,9 @@
                         </HBox>
                      </children>
                   </GridPane>
-                  <TextArea fx:id="textField" prefHeight="200.0" prefWidth="200.0" text="Ustaw statki&#10;Aby ustawić statek wybierz jego orientację, a następnie kliknij na jego rufę. &#10;Następnie wybierz na swojej mapie pole gdzie ma znajdować się rufa.&#10;" />
                </children>
             </GridPane>
-            <GridPane prefHeight="775.0" prefWidth="324.0">
+            <GridPane prefHeight="775.0" prefWidth="324.0" GridPane.rowIndex="1">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -436,9 +431,24 @@
                 <RowConstraints maxHeight="390.0" minHeight="10.0" prefHeight="220.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <VBox prefHeight="838.0" prefWidth="169.0" />
+                  <VBox prefHeight="838.0" prefWidth="169.0">
+                     <children>
+                        <Label prefHeight="24.0" prefWidth="91.0" text="Twoj wynik" />
+                        <Label fx:id="yourScore" prefHeight="53.0" prefWidth="103.0" style="-fx-background-color: #ffffff;" text="Label">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="24.0" prefWidth="138.0" text="Wynik przeciwnika" />
+                        <Label fx:id="opponentScore" prefHeight="53.0" prefWidth="103.0" style="-fx-background-color: #ffffff;" text="Label">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </Label>
+                     </children></VBox>
                </children>
             </GridPane>
+            <TextArea fx:id="textField" editable="false" prefHeight="200.0" prefWidth="200.0" text="Ustaw statki&#10;Aby ustawić statek wybierz jego orientację, a następnie kliknij na jego rufę. &#10;Następnie wybierz na swojej mapie pole gdzie ma znajdować się rufa.&#10;" GridPane.columnIndex="2" />
          </children>
       </GridPane>
    </content>

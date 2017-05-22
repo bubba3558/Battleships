@@ -4,6 +4,8 @@ import com.sun.org.apache.xpath.internal.operations.Bool;
 import exception.CollisionException;
 import exception.OutOfBoardException;
 
+import java.awt.*;
+
 /**
  * Created by Martyna on 11.05.2017.
  */
@@ -21,9 +23,9 @@ public class Board {
     public Board (int height, int width) {
         this.width=width;
         this.height=height;
-        board=new Field[width+1][height+1];
-        for( int i=1; i<=width; ++i)
-            for ( int j=1; j<=height; j++)
+        board=new Field[width+2][height+2];//add extra row for safety fields
+        for( int i=0; i<=width+1; ++i)
+            for ( int j=0; j<=height+1; j++)
                 board[i][j]=new Field();
     }
     public int getWidth(){
@@ -40,9 +42,17 @@ public class Board {
     }
     private boolean placeHorizontal(int startX, int startY, Ship ship) throws OutOfBoardException, CollisionException {
         if(isPlaceableHorizontal(startX, startY, ship.getSize())) {
+            board[startX-1][startY-1].setSafetyZone();
+            board[startX-1][startY  ].setSafetyZone();
+            board[startX-1][startY+1].setSafetyZone();
             for (int x = startX; x < startX + ship.getSize(); ++x) {
+                board[x][startY-1].setSafetyZone();
                 board[x][startY].setShip(ship);
+                board[x][startY+1].setSafetyZone();
             }
+            board[startX+ship.getSize()][startY-1].setSafetyZone();
+            board[startX+ship.getSize()][startY  ].setSafetyZone();
+            board[startX+ship.getSize()][startY+1].setSafetyZone();
             return true;
         }
         return false;
@@ -53,14 +63,24 @@ public class Board {
                 throw new OutOfBoardException("can not set ship outside the board");
             if (board[x][startY].getFieldType() == FieldType.WITHSHIP)
                 throw new CollisionException("can not set two ships in the same place");
+            if (board[x][startY].getFieldType() == FieldType.NEARSHIP)
+                throw new CollisionException("can not set two ships near each other");
         }
         return true;
     }
     private boolean placeVertical(int startX, int startY, Ship ship) throws OutOfBoardException, CollisionException {
         if(isPlaceableVertical(startX,startY,ship.getSize())) {
+            board[startX-1][startY-1].setSafetyZone();
+            board[ startX ][startY-1].setSafetyZone();
+            board[startX+1][startY-1].setSafetyZone();
             for (int y = startY; y < startY + ship.getSize(); ++y) {
-                board[startX][y].setShip(ship);
+                board[startX-1][y].setSafetyZone();
+                board[ startX ][y].setShip(ship);
+                board[startX+1][y].setSafetyZone();
             }
+            board[startX-1][startY+ ship.getSize()].setSafetyZone();
+            board[ startX ][startY+ ship.getSize()].setSafetyZone();
+            board[startX+1][startY+ ship.getSize()].setSafetyZone();
             return true;
         }
         return false;
@@ -72,10 +92,11 @@ public class Board {
                 throw new OutOfBoardException("can not set ship outside the board");
             if(board[startX][y].getFieldType()==FieldType.WITHSHIP)
                 throw new CollisionException("can not set two ships in the same place");
+            if (board[startX][y].getFieldType() == FieldType.NEARSHIP)
+                throw new CollisionException("can not set two ships near each other");
         }
         return true;
     }
-
 
     public boolean takeHit(int x, int y) throws OutOfBoardException{
         if (!isFieldInsideBoard(x, y))
@@ -88,7 +109,7 @@ public class Board {
         return false;
     }
 
-    private boolean isFieldInsideBoard(int x, int y){
+    public boolean isFieldInsideBoard(int x, int y){
         if ( y<=0 || x<=0 || y>height || x>width )
             return false;
         return true;
@@ -100,5 +121,14 @@ public class Board {
 
     public Boolean isShipFloating(int x, int y) {
         return board[x][y].isShipFloating();
+    }
+    public int getShipLength(int x, int y) {
+        return board[x][y].getLength();
+    }
+    public Point getBow(int x, int y){
+        return board[x][y].getBow();
+    }
+    public Orientation getOrientation (int x, int y){
+        return board[x][y].getOrientaion();
     }
 }

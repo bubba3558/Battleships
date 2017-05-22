@@ -2,6 +2,8 @@ package Logic;
 
 import com.sun.javafx.css.Size;
 
+import java.awt.Point;
+
 /**
  * Created by Martyna on 10.05.2017.
  */
@@ -9,6 +11,7 @@ public class Ship {
     private int size;
     private int condition;
     private Orientation orientation;
+    private Point bow=null;
 
 
     public Ship(int size, Orientation orientation){
@@ -16,7 +19,18 @@ public class Ship {
         this.orientation=orientation;
         this.condition=size;
     }
-
+    public Ship(int size, Orientation orientation, Point bow){
+        this.size=size;
+        this.orientation=orientation;
+        this.condition=size;
+        this.bow=bow;
+    }
+    public void setBow (Point bow){
+        this.bow=bow;
+    }
+    public Point getBow() {
+        return bow;
+    }
     public Orientation getOrientation(){
         return orientation;
     }

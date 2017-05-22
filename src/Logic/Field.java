@@ -2,6 +2,8 @@ package Logic;
 
 import Logic.Ship;
 
+import java.awt.Point;
+
 /**
  * Created by Martyna on 10.05.2017.
  */
@@ -35,5 +37,16 @@ public class Field {
            return false;
         else return true;
     }
-
+    public void setSafetyZone(){
+        type= FieldType.NEARSHIP;
+    }
+    public Point getBow(){
+        return ship.getBow();
+    }
+    public int getLength() {
+        return ship.getSize();
+    }
+    public Orientation getOrientaion() {
+        return ship.getOrientation();
+    }
 }

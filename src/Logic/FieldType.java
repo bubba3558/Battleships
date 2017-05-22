@@ -6,5 +6,6 @@ package Logic;
 public enum FieldType {
     SHOTED,
     EMPTY,
-    WITHSHIP
+    NEARSHIP,//not allow to place 2 ship next to each other
+    WITHSHIP,
 }

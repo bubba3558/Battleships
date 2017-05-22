@@ -5,6 +5,8 @@ import exception.CollisionException;
 import exception.OutOfBoardException;
 import sample.Controller;
 
+import java.awt.Point;
+
 /**
  * Created by Martyna on 12.05.2017.
  */
@@ -16,11 +18,11 @@ public class Game {
     private int shipNo = 0;
     private int score=0;
     private NetworkManager netManager;
-    boolean isYourTurn;
-    boolean youAreReady=false;
-    boolean opponentIsReady=false;
-    boolean gamePrepared=false;
-    Controller controller;
+    private boolean isYourTurn;
+    private boolean youAreReady=false;
+    private boolean opponentIsReady=false;
+    private boolean gamePrepared=false;
+    private Controller controller;
 
     public Game (Boolean isHost, int portNo, String serverIP,Controller controller){
         board=new Board(BOARDHIGHT,BOARDWIDTH);
@@ -44,17 +46,22 @@ public class Game {
     public void takeHit(int x, int y)throws Exception{
         if (board.takeHit(x, y) ){
             --score;
-            if(score==0) {
-                netManager.sendMessage(Message.getYouWonMessage(x, y));
-                controller.printMessage("przegrałes");
-            }
+            System.out.println(score);
             if(board.isShipFloating(x, y)) {
                 netManager.sendMessage(Message.getHitNotSunkMessage(x, y));
                 controller.setYourShipHit(x, y);
             }
-            else
-                netManager.sendMessage(Message.getHitAndSunkMessage(x,y));
-                controller.setYourShipSunk(x, y);
+            else {
+                Point point=board.getBow(x,y);
+                x=point.x;
+                y=point.y;
+                netManager.sendMessage( Message.getHitAndSunkMessage( x, y, board.getShipLength(x,y), board.getOrientation(x,y)) );
+                controller.setYourShipSunk(x, y, board.getShipLength( x, y), board.getOrientation(x,y));
+            }
+            if(score==0) {
+                netManager.sendMessage(Message.getYouWonMessage(x, y));
+                controller.printMessage("przegrałes");
+            }
         }
         else {
             netManager.sendMessage(Message.getMissMessage(x,y) );
@@ -86,7 +93,7 @@ public class Game {
                 if(message.getFloating()==true)
                     controller.setShipHit( message.getX(), message.getY() );
                 else
-                    controller.setShipSunkHit( message.getX(), message.getY() );
+                    controller.setShipSunkHit( message.getX(), message.getY(), message.getShipLength(), message.getOrientation());
                 break;
             case READYTOPLAY:
                 opponentIsReady=true;
@@ -106,10 +113,10 @@ public class Game {
     private void checkIfGameIsReady() {
         if (youAreReady && opponentIsReady) {
             gamePrepared = true;
-            if(isYourTurn())
-                controller.printMessage("rozpocznij gre");
+            if (isYourTurn())
+                controller.printMessage("Twoja kolej");
             else
-                controller.printMessage("poczekaj na ruch przeciwnika");
+                controller.printMessage("czekaj na ruch przeciwnika");
         }
     }
     public void sendReadyMessage(){
@@ -125,6 +132,13 @@ public class Game {
         if(board.placeShip(startX, startY, ship) ){
             ++shipNo;
             score+=ship.getSize();
+            ship.setBow(new Point(startX, startY));
         }
     }
+    public boolean isTaken(int x, int y){
+        if (! board.isFieldInsideBoard(x, y))
+            return true;
+        return ( board.getFieldType(x,y)==FieldType.WITHSHIP || board.getFieldType(x,y)==FieldType.NEARSHIP );
+    }
+
 }

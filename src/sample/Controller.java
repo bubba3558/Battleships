@@ -41,7 +41,6 @@ public class Controller implements Initializable {
     @FXML private Shape triangle2b;
     @FXML private Shape triangle2c;
     @FXML private Label orientationText;
-    @FXML private Label pointText;
 
     private Cell [][]opponentBoard;
     private Cell [][]myBoard;
@@ -49,8 +48,10 @@ public class Controller implements Initializable {
     public final static String HITSUNKCOLOR="#930505";
     public final static String MISSCOLOR="#58648c";
     public final static String SHIPCOLOR="#428908";
-    public final static int SHIPSNO=7;
-    private int placedShipsNo=0;
+    public final static String WATERCOLOR="#5b7cea";
+
+    public final static int SHIPSNO=2;
+    private int shipsToPlace=SHIPSNO;
     private int startX=-1;
     private int startY=-1;
 
@@ -58,8 +59,8 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        opponentBoard=new Cell[game.BOARDWIDTH+1][game.BOARDHIGHT+1];
-        myBoard=new Cell[game.BOARDWIDTH+1][game.BOARDHIGHT+1];
+        opponentBoard=new Cell[game.BOARDWIDTH+2][game.BOARDHIGHT+2];
+        myBoard=new Cell[game.BOARDWIDTH+2][game.BOARDHIGHT+2];
         initMyBoard();
         initOpponentBoard();
         Platform.setImplicitExit(false);
@@ -83,16 +84,15 @@ public class Controller implements Initializable {
     public void setGame(Game game){
         this.game=game;
     }
-    public void placeShips(){
-        if (placedShipsNo < SHIPSNO){
-            printMessage("Umiesc wszystkie statki\n" +
-                    "Aby ustawić statek wybierz jego orientację, a następnie kliknij na jego rufę. \n" +
-                    "Następnie wybierz na swojej mapie pole gdzie ma znajdować się rufa. ");
-            return;
-            }
-        printMessage("ustawiles statki, czekaj na przeciwnika");
-        game.sendReadyMessage();
-    }
+//    public void placeShips(){
+//        if (placedShipsNo < SHIPSNO){
+//            printMessage("Umiesc wszystkie statki\n" +
+//                    "Aby ustawić statek wybierz jego orientację, a następnie kliknij na jego rufę. \n" +
+//                    "Następnie wybierz na swojej mapie pole gdzie ma znajdować się rufa. ");
+//            return;
+//            }
+//        printMessage("ustawiles statki, czekaj na przeciwnika");
+//    }
     public void setMiss(int x, int y ){
         opponentBoard[x][y].setStyle("-fx-background-color: "+MISSCOLOR);//getChildren().add(new Rectangle(15,15));
         printMessage("Pudlo, kolej przeciwnika");
@@ -107,20 +107,52 @@ public class Controller implements Initializable {
         opponentBoard[x][y].setStyle("-fx-background-color: "+HITFLOATINGCOLOR);
         printMessage("trafiony!");
     }
-    public void setYourShipHit(int x, int y ){
-        myBoard[x][y].setShoot();
-        myBoard[x][y].setStyle("-fx-background-color: "+HITFLOATINGCOLOR);
+    public void setYourShipHit(int x, int y){
+            myBoard[x][y].setStyle("-fx-background-color: " + HITFLOATINGCOLOR);
         printMessage("Zostales trafiny :(");
     }
-    public void setShipSunkHit(int x, int y){
-        opponentBoard[x][y].setStyle("-fx-background-color: "+HITSUNKCOLOR);
-        printMessage("zatopiony!");
-        //ToDO change other ship fields to sunkcolor
+    public void setShipSunkHit(int x, int y, int length, Orientation orientation){
+        if(orientation==Orientation.HORIZONTAL) {
+            setSafetyColumn(x-1, y);
+            for (int i = 0; i < length; ++i, ++x) {
+                setSafetyColumn(x,y);
+                opponentBoard[x][y].setStyle("-fx-background-color: " + HITSUNKCOLOR);
+            }
+            setSafetyColumn(x, y);
+        }
+        else {
+            setSafetyRow(x,y);
+            for (int i = 0; i < length; ++i, ++y) {
+                setSafetyRow(x,y);
+                opponentBoard[x][y].setStyle("-fx-background-color: " + HITSUNKCOLOR);
+            }
+            setSafetyRow(x,y);
+            printMessage("zatopiony!");
+        }
     }
-
-    public  void setYourShipSunk(int x, int y){
-        myBoard[x][y].setShoot();
-        myBoard[x][y].setStyle("-fx-background-color: "+HITSUNKCOLOR);
+    private void setSafetyColumn(int x, int y){
+        setSafetyField(x, y);
+        setSafetyField(x,y-1);
+        setSafetyField(x,y+1);
+    }
+    private void setSafetyRow( int x, int y){
+        setSafetyField(x-1, y);
+        setSafetyField( x ,y);
+        setSafetyField(x+1,y);
+    }
+    private void setSafetyField(int x, int y){
+        opponentBoard[x][y].setShoot();
+        opponentBoard[x][y].setStyle("-fx-background-color: " + MISSCOLOR);
+    }
+    public void setYourShipSunk(int x, int y,  int length, Orientation orientation){
+        if(orientation==Orientation.HORIZONTAL)
+            for(int i=0; i<length; ++i, ++x) {
+               myBoard[x][y].setStyle("-fx-background-color: " + HITSUNKCOLOR);
+            }
+        else
+            for(int i=0; i<length; ++i, ++y) {
+                myBoard[x][y].setStyle("-fx-background-color: " + HITSUNKCOLOR);
+            }
         printMessage("twoj statek zatonal");
         //ToDO change other ship fields to sunkcolor
     }
@@ -130,10 +162,12 @@ public class Controller implements Initializable {
         textField.setText(text);
     }
     public void initOpponentBoard(){
-        for ( int y = 1; y<=game.BOARDWIDTH;++y){
-            for ( int x = 1; x<=game.BOARDWIDTH;++x){
+        for ( int y = 0; y<=game.BOARDWIDTH+1;++y){
+            for ( int x = 0; x<=game.BOARDWIDTH+1;++x){
                 Cell cell=new Cell (x,y);
                 opponentBoard[x][y]=cell;
+                if( x==0 || y==0 || y==game.BOARDWIDTH || x==game.BOARDHIGHT)
+                    continue; //add safety frame
                 opponentGrid.add(cell,x,y);
                 cell.setOnMouseClicked(new EventHandler<MouseEvent>()
                 {
@@ -162,22 +196,29 @@ public class Controller implements Initializable {
         }
     }
     public void initMyBoard(){
-        for ( int y = 1; y<=game.BOARDWIDTH;++y){
-            for ( int x = 1; x<=game.BOARDWIDTH;++x){
+        for ( int y = 0; y<=game.BOARDWIDTH+1;++y){
+            for ( int x = 0; x<=game.BOARDWIDTH+1;++x){
                 Cell cell=new Cell (x,y);
-                myGrid.add(cell,x,y);
                 myBoard[x][y]=cell;
+                if( x==0 || y==0 || y==game.BOARDWIDTH || x==game.BOARDHIGHT)
+                    continue; //add safety frame
+                myGrid.add(cell,x,y);
                 cell.setOnMouseClicked(new EventHandler<MouseEvent>()
                 {
                     @Override
                     public void handle(MouseEvent t) {
-                        if (game.isPrepared()){
-                            printMessage("ustawiliscie juz statki");
+                        if (shipsToPlace==0){
+                            printMessage("ustawiles juz statki");
                             return;
+                        }
+                        if( ! game.isTaken( startX, startY )) {
+                            myBoard[startX][startY].setStyle("-fx-background-color: "+ WATERCOLOR);
                         }
                         startY=cell.y;
                         startX=cell.x;
-                        pointText.setText(""+ (char) (startX+64) +startY);
+                        if( !game.isTaken(startX, startY ) )
+                            cell.setStyle("-fx-background-color: "+ MISSCOLOR);
+                        printMessage("Rufa znajdzie sie na polu: "+ (char) (startX+64) +startY);
                     }
                 });
             }
@@ -188,84 +229,103 @@ public class Controller implements Initializable {
         if (placeShip(5)){
             triangle5.setDisable(true);
             triangle5.setOpacity(0);
-            ++placedShipsNo;
         }
     }
     public void placeShipL4a(){
         if (placeShip(4)){
             triangle4a.setDisable(true);
             triangle4a.setOpacity(0);
-            ++placedShipsNo;
         }
     }
     public void placeShipL4b(){
         if (placeShip(4)){
             triangle4b.setDisable(true);
             triangle4b.setOpacity(0);
-            ++placedShipsNo;
         }
     }
     public void placeShipL3a(){
         if (placeShip(3)){
             triangle3a.setDisable(true);
             triangle3a.setOpacity(0);
-            ++placedShipsNo;
         }
     }
     public void placeShipL3b(){
         if (placeShip(3)){
             triangle3b.setDisable(true);
             triangle3b.setOpacity(0);
-            ++placedShipsNo;
         }
     }
     public void placeShipL2a(){
         if (placeShip(2)){
             triangle2a.setDisable(true);
             triangle2a.setOpacity(0);
-            ++placedShipsNo;
         }
     }
     public void placeShipL2b(){
         if (placeShip(2)){
             triangle2b.setDisable(true);
             triangle2b.setOpacity(0);
-            ++placedShipsNo;
         }
     }
     public void placeShipL2c(){
         if (placeShip(2)){
             triangle2c.setDisable(true);
             triangle2c.setOpacity(0);
-            ++placedShipsNo;
         }
     }
 
-    public boolean placeShip(int length){//true-successful
-        if(startX==-1) {
+    public boolean placeShip(int length) {//true-successful
+        if (startX == -1) {
             printMessage("wybierz pole dla rufy");
             return false;
         }
-        int x=startX, y=startY;                     //in case it will be changed
-        Orientation tempOrientation=orientation;
+        int x = startX, y = startY;                     //in case it will be changed
+        Orientation tempOrientation = orientation;
         try {
-            game.addShipToBoard(tempOrientation, length, x,y);
-        }catch (OutOfBoardException e){
+            game.addShipToBoard(tempOrientation, length, x, y);
+        } catch (OutOfBoardException e) {
             printMessage("Nie mozna postawic statku w tym miejscu, wychodzi poza pole");
             return false;
-        }catch (CollisionException e){
+        } catch (CollisionException e) {
             printMessage("Nie mozna postawic statku w tym miejscu, kolizja z innym statkiem");
             return false;
         }
-        if(tempOrientation==Orientation.HORIZONTAL) {
-            for (int i = 0; i < length; ++i, ++x)
+        colorShipFieldsAndSafetyZone(tempOrientation, length, x, y);
+        --shipsToPlace;
+        if(shipsToPlace==0) {
+            game.sendReadyMessage();
+            printMessage("ustawiles statki. czekaj na przeciwnika");
+        }
+
+        return true;
+    }
+    private void colorShipFieldsAndSafetyZone(Orientation orientation, int length, int x, int y){
+        if(orientation==Orientation.HORIZONTAL) {
+            myBoard[x-1][y - 1].setStyle("-fx-background-color: " + MISSCOLOR);
+            myBoard[x-1][y].setStyle("-fx-background-color: " + MISSCOLOR);
+            myBoard[x-1][y + 1].setStyle("-fx-background-color: " + MISSCOLOR);
+            for (int i = 0; i < length; ++i, ++x) {
+                myBoard[x][y - 1].setStyle("-fx-background-color: " + MISSCOLOR);
                 myBoard[x][y].setStyle("-fx-background-color: " + SHIPCOLOR);
-            return true;
+                myBoard[x][y + 1].setStyle("-fx-background-color: " + MISSCOLOR);
+            }
+            myBoard[x][y - 1].setStyle("-fx-background-color: " + MISSCOLOR);
+            myBoard[x][y].setStyle("-fx-background-color: " + MISSCOLOR);
+            myBoard[x][y + 1].setStyle("-fx-background-color: " + MISSCOLOR);
+
         }
         else {
-            for (int i = 0; i < length; ++i, ++y)
+            myBoard[x-1][y-1].setStyle("-fx-background-color: " + MISSCOLOR);
+            myBoard[ x ][y-1].setStyle("-fx-background-color: " + MISSCOLOR);
+            myBoard[x+1][y-1].setStyle("-fx-background-color: " + MISSCOLOR);
+            for (int i = 0; i < length; ++i, ++y) {
+                myBoard[x-1][y].setStyle("-fx-background-color: " + MISSCOLOR);
                 myBoard[x][y].setStyle("-fx-background-color: " + SHIPCOLOR);
-            return true;
+                myBoard[x+1][y].setStyle("-fx-background-color: " + MISSCOLOR);
+            }
+            myBoard[x-1][y].setStyle("-fx-background-color: " + MISSCOLOR);
+            myBoard[x][y].setStyle("-fx-background-color: " + MISSCOLOR);
+            myBoard[x+1][y].setStyle("-fx-background-color: " + MISSCOLOR);
         }
     }
 
