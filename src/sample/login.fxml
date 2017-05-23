@@ -7,7 +7,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.LoginController">
    <children>
       <GridPane layoutX="48.0" layoutY="47.0" prefHeight="291.0" prefWidth="494.0">
@@ -29,7 +28,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="31.0" prefWidth="116.0" text="Polacz" textAlignment="CENTER" GridPane.columnIndex="1" />
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#connect" prefHeight="31.0" prefWidth="116.0" text="Polacz" textAlignment="CENTER" GridPane.columnIndex="1" />
                </children>
             </GridPane>
             <GridPane>
@@ -43,10 +42,10 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label fx:id="textIP" text="moje IP:" GridPane.rowIndex="1" />
-                  <Label fx:id="portText" prefHeight="21.0" prefWidth="97.0" text="numer portu:" GridPane.rowIndex="2" />
-                  <TextField onAction="#getIP" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField onAction="#getPortNo" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label fx:id="textIP" prefHeight="21.0" prefWidth="295.0" text="moje IP:" GridPane.rowIndex="1" />
+                  <Label fx:id="textPort" prefHeight="21.0" prefWidth="264.0" text="numer portu:" GridPane.rowIndex="2" />
+                  <TextField fx:id="IPfield" onAction="#getIP" text="127.0.0.1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="portNoField" onAction="#getPortNo" text="4444" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Label fx:id="textWho" alignment="CENTER" prefHeight="54.0" prefWidth="227.0" style="-fx-background-color: #eeeeee;" text="Chce utworzyc wlasna gre">
                      <font>
                         <Font size="17.0" />
@@ -59,7 +58,7 @@
                   </AnchorPane>
                </children>
             </GridPane>
-            <Label fx:id="ErrorText" contentDisplay="CENTER" mnemonicParsing="true" pickOnBounds="false" prefHeight="113.0" prefWidth="616.0" textAlignment="CENTER" textFill="#8d3636" wrapText="true" GridPane.rowIndex="1">
+            <Label fx:id="errorText" contentDisplay="CENTER" mnemonicParsing="true" pickOnBounds="false" prefHeight="113.0" prefWidth="616.0" textAlignment="CENTER" textFill="#8d3636" wrapText="true" GridPane.rowIndex="1">
                <font>
                   <Font size="18.0" />
                </font>

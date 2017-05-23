@@ -27,20 +27,19 @@ public class Game {
     private Controller controller;
     private LoginController loginController=new LoginController();
 
-    public Game (Boolean isHost, int portNo,String serverIP, Controller controller){
+    public Game (Boolean isHost, NetworkManager networkManager,Controller controller){
+        this.netManager=networkManager;
         board=new Board(BOARDHIGHT,BOARDWIDTH);
-        netManager=new NetworkManager( isHost, portNo, serverIP);
-        netManager.initConnection();
         netManager.setGame(this);
         isYourTurn=isHost;
         this.controller=controller;
     }
-    public Game (Boolean isHost, int portNo, String serverIP){
-        board=new Board(BOARDHIGHT,BOARDWIDTH);
-        netManager=new NetworkManager( isHost, portNo, serverIP);
-        netManager.run();
-        isYourTurn=isHost;
-    }
+//    public Game (Boolean isHost, int portNo, String serverIP){
+//        board=new Board(BOARDHIGHT,BOARDWIDTH);
+//        //netManager=new NetworkManager( isHost, portNo, serverIP);
+//        netManager.run();
+//        isYourTurn=isHost;
+//    }
     public GameStage getStage(){
         return stage;
     }
