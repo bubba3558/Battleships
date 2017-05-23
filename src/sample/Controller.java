@@ -62,8 +62,6 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        opponentBoard=new Cell[game.BOARDWIDTH+2][game.BOARDHIGHT+2];
-        myBoard=new Cell[game.BOARDWIDTH+2][game.BOARDHIGHT+2];
         initMyBoard();
         initOpponentBoard();
         Platform.setImplicitExit(false);
@@ -165,11 +163,13 @@ public class Controller implements Initializable {
         textField.setText(text);
     }
     public void initOpponentBoard(){
+
+        opponentBoard=new Cell[game.BOARDWIDTH+2][game.BOARDHIGHT+2];
         for ( int y = 0; y<=game.BOARDWIDTH+1;++y){
             for ( int x = 0; x<=game.BOARDWIDTH+1;++x){
                 Cell cell=new Cell (x,y);
                 opponentBoard[x][y]=cell;
-                if( x==0 || y==0 || y==game.BOARDWIDTH || x==game.BOARDHIGHT)
+                if( x==0 || y==0 || y==game.BOARDWIDTH+1 || x==game.BOARDHIGHT+1)
                     continue; //add safety frame
                 opponentGrid.add(cell,x,y);
                 cell.setOnMouseClicked(new EventHandler<MouseEvent>()
@@ -204,11 +204,12 @@ public class Controller implements Initializable {
         }
     }
     public void initMyBoard(){
+        myBoard=new Cell[game.BOARDWIDTH+2][game.BOARDHIGHT+2];
         for ( int y = 0; y<=game.BOARDWIDTH+1;++y){
             for ( int x = 0; x<=game.BOARDWIDTH+1;++x){
                 Cell cell=new Cell (x,y);
                 myBoard[x][y]=cell;
-                if( x==0 || y==0 || y==game.BOARDWIDTH || x==game.BOARDHIGHT)
+                if( x==0 || y==0 || y==game.BOARDWIDTH+1 || x==game.BOARDHIGHT+1)
                     continue; //add safety frame
                 myGrid.add(cell,x,y);
                 cell.setOnMouseClicked(new EventHandler<MouseEvent>()
@@ -337,13 +338,43 @@ public class Controller implements Initializable {
         }
     }
 
-    public void restart(){
-        if(!game.isGameEnd()){
-            printMessage("dokoncz gre abyja zrestartowac");
-            return;
-        }
-        Stage stage = (Stage) restartButton.getScene().getWindow();
-        stage.close();
+    public void restartGame(){
+        if( !game.isGameEnd())
+            printMessage("zakoncz gre, aby ja zresetowac");
+        game.setRestart();
     }
 
+    public void restartController(){
+        shipsToPlace=SHIPSNO;
+        resetBoard(myBoard);
+        resetBoard(opponentBoard);
+        setTrianglesVisible();
+    }
+    public void resetBoard( Cell[][] board) {
+        for ( int y = 0; y<=game.BOARDWIDTH+1;++y) {
+            for (int x = 0; x <= game.BOARDWIDTH + 1; ++x) {
+                board[x][y].reset();
+            }
+        }
+    }
+    public void setTrianglesVisible(){
+
+        triangle5.setDisable(false);
+        triangle5.setOpacity(1);
+        triangle4a.setDisable(false);
+        triangle4a.setOpacity(1);
+        triangle4b.setDisable(false);
+        triangle4b.setOpacity(1);
+        triangle3a.setDisable(false);
+        triangle3a.setOpacity(1);
+        triangle3b.setDisable(false);
+        triangle3b.setOpacity(1);
+        triangle2a.setDisable(false);
+        triangle2a.setOpacity(1);
+        triangle2b.setDisable(false);
+        triangle2b.setOpacity(1);
+        triangle2c.setDisable(false);
+        triangle2c.setOpacity(1);
+    }
 }
+// komunikat

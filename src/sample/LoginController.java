@@ -30,6 +30,7 @@ public class LoginController {
     @FXML private TextField IPfield;
     @FXML private TextField portNoField;
     @FXML private Label errorText;
+    @FXML private Label logText;
 
     public void changeHost(){
         if (wantToBeHost){
@@ -37,12 +38,14 @@ public class LoginController {
             textWho.setText("Chce dolaczyc do gry");
             textIP.setText("ID hosta: ");
             textPort.setText("numer portu hosta: ");
+            errorText.setText("");
         }
         else {
             wantToBeHost=true;
             textWho.setText("Chce stworzyc nowa gre");
             textIP.setText("Twoje IP:");
             textPort.setText("numer portu: ");
+            errorText.setText("Po kliknieciu polacz poczekaj na 2 gracza");
         }
     }
     public void getIP(){
@@ -60,15 +63,13 @@ public class LoginController {
             if(networkManager.initConnection())
                 startGame();
             else{
-                errorText.setText("Nie udalo sie utworzyc polaczeni :(  Sprobuj ponownie");
+                errorText.setText("Nie udalo sie utworzyc polaczeni :(  Czy na pewno podales wlasciwe numery? \n Moze port "+ portNo+ " jest zajety?");
                 networkManager=null;
             }
 
         }
     public void startGame() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/sample.fxml"));
-//        Stage oldStage = (Stage) IPfield.getScene().getWindow();
-//        oldStage.close();
         Parent root = loader.load();
         Controller controller = (Controller) loader.getController();
         game = new Game(wantToBeHost, networkManager, controller);
@@ -77,7 +78,9 @@ public class LoginController {
         Scene scene = new Scene(root);
         Main.stage.setScene(scene);
         Platform.setImplicitExit(false);
-        //Main.stage.show();
+        Main.stage.setOnCloseRequest(e-> {
+            networkManager.closeConnections();
+        });
     }
 
 

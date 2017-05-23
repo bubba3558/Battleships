@@ -29,6 +29,11 @@
               </rowConstraints>
                <children>
                   <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#connect" prefHeight="31.0" prefWidth="116.0" text="Polacz" textAlignment="CENTER" GridPane.columnIndex="1" />
+                  <Label fx:id="logText" prefHeight="21.0" prefWidth="328.0" text="Po kliknieciu polacz poczekaj na 2 gracza">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
                </children>
             </GridPane>
             <GridPane>

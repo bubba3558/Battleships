@@ -14,8 +14,7 @@ public class Cell extends Pane {
         this.x=x;
         this.y=y;
         wasShoot=false;
-        //this.getStyleClass().add("notShoot");}
-       this.setStyle("-fx-background-color: #5b7cea");
+        this.setStyle("-fx-background-color: #5b7cea");
     }
     public Cell(int x, int y, boolean setColor){
         this.x=x;
@@ -29,5 +28,9 @@ public class Cell extends Pane {
     }
     public boolean wasShoot(){
         return wasShoot;
+    }
+    public void reset(){
+        wasShoot=false;
+        this.setStyle("-fx-background-color: #5b7cea");
     }
 }

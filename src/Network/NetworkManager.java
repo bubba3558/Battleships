@@ -48,14 +48,11 @@ public class NetworkManager {
             closeConnections();
             return false;
         }
-        run();
+        ( new ServerThread() ).start();
     return true;
     }
     public void setGame(Game game) {//message handler
         this.game=game;
-    }
-    public void run() {
-        (new ServerThread()).start();
     }
 
     public void closeConnections() {
@@ -64,6 +61,10 @@ public class NetworkManager {
                 serverSocket.close();
             if (clientSocket != null && !clientSocket.isClosed())
                 clientSocket.close();
+            if (messageOutput != null)
+                messageOutput.close();
+            if( messageListener != null)
+                messageListener.MessageInput.close();
         } catch (IOException e) {
             System.err.println("Server could not made connection");
             e.printStackTrace();
@@ -84,32 +85,8 @@ public class NetworkManager {
     private class ServerThread extends Thread {
 
         public void run() {
-//            try {
-//                if (isHost) {
-//                    serverSocket = new ServerSocket(port);
-//                    serverSocket.setSoTimeout(40000);
-//                    clientSocket = serverSocket.accept();
-//                    connected = true;
-//                } else {
-//                    clientSocket = new Socket(serverIP, port);
-//                }
-//            }catch (IOException e) {
-//                    System.err.println("Could not connect");
-//                    e.printStackTrace();
-//                }
-//
-//            try {
-//                messageOutput = new ObjectOutputStream(clientSocket.getOutputStream());
-//                messageListener = new MessageListener(clientSocket.getInputStream());
-//            } catch (IOException e) {
-//                System.err.println("could not get input or output");
-//                closeConnections();
-//            }
             messageListener.start();
-            //debug
             connected = true;
-            System.out.println("powstal serwer");
-            //nie zamknie sie za szybko?
 
         }
     }
@@ -144,8 +121,5 @@ public class NetworkManager {
             }
 
         }
-    }
-    public boolean isConnected(){
-        return connected;
     }
 }

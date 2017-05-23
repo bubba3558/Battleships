@@ -17,15 +17,14 @@ public class Game {
     public static final int BOARDHIGHT = 15;
     public static final int BOARDWIDTH = 15;
     private Board board;
-    private int score=0;
     public NetworkManager netManager;
     private boolean isYourTurn;
+    private int score=0;
     private boolean youAreReady=false;
     private boolean opponentIsReady=false;
     private boolean gamePrepared=false;
     private boolean gameEnd=false;
     private Controller controller;
-    private LoginController loginController=new LoginController();
 
     public Game (Boolean isHost, NetworkManager networkManager,Controller controller){
         this.netManager=networkManager;
@@ -34,22 +33,6 @@ public class Game {
         isYourTurn=isHost;
         this.controller=controller;
     }
-//    public Game (Boolean isHost, int portNo, String serverIP){
-//        board=new Board(BOARDHIGHT,BOARDWIDTH);
-//        //netManager=new NetworkManager( isHost, portNo, serverIP);
-//        netManager.run();
-//        isYourTurn=isHost;
-//    }
-    public GameStage getStage(){
-        return stage;
-    }
-    public void setController(Controller controller){
-        this.controller=controller;
-    }
-    public void setStage(GameStage stage){
-        this.stage=stage;
-    }
-
     public boolean isYourTurn() {
         return  isYourTurn;
     }
@@ -80,16 +63,6 @@ public class Game {
             controller.setOpponentMiss(x,y);
         }
     }
-    public void main(String[] args){
-        netManager.run();
-        //placeShips();
-
-        playRound();
-    }
-    public boolean playRound(){
-       //debug
-  return true;
-    }
     public void handleMessage(Message message)throws Exception{
 
         switch (message.getType()){
@@ -115,6 +88,8 @@ public class Game {
                 controller.printMessage("wygrałeś");
                 gameEnd=true;
                 break;
+            case RESTART:
+                restart();
         }
         return;
     }
@@ -131,9 +106,10 @@ public class Game {
         }
     }
     public void sendReadyMessage(){
-        netManager.sendMessage(Message.getReadyToPlayMessage());
         youAreReady=true;
         checkIfGameIsReady();
+        if(!gamePrepared);
+            netManager.sendMessage(Message.getReadyToPlayMessage());
     }
     public boolean isPrepared(){
         return gamePrepared;
@@ -152,5 +128,18 @@ public class Game {
     }
     public boolean isGameEnd(){
         return gameEnd;
+    }
+    public void setRestart(){
+        netManager.sendMessage(Message.getRestartMessage() );
+        restart();
+    }
+    public void restart(){
+        board=new Board(BOARDHIGHT, BOARDWIDTH);
+        score=0;
+        youAreReady=false;
+        opponentIsReady=false;
+        gamePrepared=false;
+        gameEnd=false;
+        controller.restartController();
     }
 }

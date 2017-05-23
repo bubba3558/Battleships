@@ -76,6 +76,9 @@ public class Message  implements Serializable {
     public static Message getYouWonMessage (int x, int y){
         return new Message (MessageType.GAME_END,x,y);
     }
+    public static Message getRestartMessage (){
+        return new Message (MessageType.RESTART);
+    }
     public static Message getErrorMessage (){
         return new Message (MessageType.ERROR);
     }
