@@ -3,7 +3,9 @@ package Logic;
 import Network.*;
 import exception.CollisionException;
 import exception.OutOfBoardException;
+import javafx.stage.Stage;
 import sample.Controller;
+import sample.LoginController;
 
 import java.awt.Point;
 
@@ -15,27 +17,36 @@ public class Game {
     public static final int BOARDHIGHT = 15;
     public static final int BOARDWIDTH = 15;
     private Board board;
-    private int shipNo = 0;
     private int score=0;
-    private NetworkManager netManager;
+    public NetworkManager netManager;
     private boolean isYourTurn;
     private boolean youAreReady=false;
     private boolean opponentIsReady=false;
     private boolean gamePrepared=false;
+    private boolean gameEnd=false;
     private Controller controller;
+    private LoginController loginController=new LoginController();
 
-    public Game (Boolean isHost, int portNo, String serverIP,Controller controller){
+    public Game (Boolean isHost, int portNo,String serverIP, Controller controller){
         board=new Board(BOARDHIGHT,BOARDWIDTH);
-        netManager=new NetworkManager(this, isHost, portNo, serverIP);
-        netManager.run();
+        netManager=new NetworkManager( isHost, portNo, serverIP);
+        netManager.initConnection();
+        netManager.setGame(this);
+        isYourTurn=isHost;
         this.controller=controller;
+    }
+    public Game (Boolean isHost, int portNo, String serverIP){
+        board=new Board(BOARDHIGHT,BOARDWIDTH);
+        netManager=new NetworkManager( isHost, portNo, serverIP);
+        netManager.run();
         isYourTurn=isHost;
     }
-
     public GameStage getStage(){
         return stage;
     }
-
+    public void setController(Controller controller){
+        this.controller=controller;
+    }
     public void setStage(GameStage stage){
         this.stage=stage;
     }
@@ -61,6 +72,7 @@ public class Game {
             if(score==0) {
                 netManager.sendMessage(Message.getYouWonMessage(x, y));
                 controller.printMessage("przegrałes");
+                gameEnd=true;
             }
         }
         else {
@@ -102,7 +114,7 @@ public class Game {
                 break;
             case GAME_END:
                 controller.printMessage("wygrałeś");
-                gamePrepared=false;
+                gameEnd=true;
                 break;
         }
         return;
@@ -130,7 +142,6 @@ public class Game {
     public void addShipToBoard(Orientation orientation,int length, int startX, int startY )throws OutOfBoardException, CollisionException {
         Ship ship =new Ship(length, orientation);
         if(board.placeShip(startX, startY, ship) ){
-            ++shipNo;
             score+=ship.getSize();
             ship.setBow(new Point(startX, startY));
         }
@@ -140,5 +151,7 @@ public class Game {
             return true;
         return ( board.getFieldType(x,y)==FieldType.WITHSHIP || board.getFieldType(x,y)==FieldType.NEARSHIP );
     }
-
+    public boolean isGameEnd(){
+        return gameEnd;
+    }
 }

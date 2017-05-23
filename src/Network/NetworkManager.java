@@ -20,14 +20,40 @@ public class NetworkManager {
     private Socket clientSocket = null;
     private ServerSocket serverSocket = null;
 
-    public NetworkManager(Game game, boolean isHost, int port, String serverIP) {
-        this.game = game;
+    public NetworkManager( boolean isHost, int port, String serverIP) {
         this.isHost = isHost;
         this.serverIP = serverIP;
-        this.port=port;
-
+        this.port = port;
     }
-
+    public boolean initConnection()  {
+        try{
+             if (isHost) {
+                serverSocket = new ServerSocket(port);
+                serverSocket.setSoTimeout(40000);
+                clientSocket = serverSocket.accept();
+                connected = true;
+            } else {
+            clientSocket = new Socket(serverIP, port);
+            }
+        }catch (IOException e) {
+            System.err.println("Could not connect");
+            e.printStackTrace();
+            return false;
+            }
+        try {
+           messageOutput = new ObjectOutputStream(clientSocket.getOutputStream());
+           messageListener = new MessageListener(clientSocket.getInputStream());
+        } catch (IOException e) {
+            System.err.println("could not get input or output");
+            closeConnections();
+            return false;
+        }
+        run();
+    return true;
+    }
+    public void setGame(Game game) {//message handler
+        this.game=game;
+    }
     public void run() {
         (new ServerThread()).start();
     }
@@ -58,36 +84,30 @@ public class NetworkManager {
     private class ServerThread extends Thread {
 
         public void run() {
-            if (isHost) {
-                try {
-                    serverSocket = new ServerSocket(port);
-                    serverSocket.setSoTimeout(40000);
-                    clientSocket = serverSocket.accept();
-                    connected=true;
-                } catch (IOException e) {
-                    System.err.println("Server could not made connection");
-                    e.printStackTrace();
-                }
-            } else {
-                try {
-                    clientSocket = new Socket(serverIP, port);
-                    connected=true;
-                } catch (IOException e) {
-                    System.err.println("Could not connect to server");
-                    e.printStackTrace();
-                }
-            }
-
-
-            try {
-                messageOutput = new ObjectOutputStream(clientSocket.getOutputStream());
-                messageListener = new MessageListener(clientSocket.getInputStream());
-            } catch (IOException e) {
-                System.err.println("could not get input or output");
-                closeConnections();
-            }
+//            try {
+//                if (isHost) {
+//                    serverSocket = new ServerSocket(port);
+//                    serverSocket.setSoTimeout(40000);
+//                    clientSocket = serverSocket.accept();
+//                    connected = true;
+//                } else {
+//                    clientSocket = new Socket(serverIP, port);
+//                }
+//            }catch (IOException e) {
+//                    System.err.println("Could not connect");
+//                    e.printStackTrace();
+//                }
+//
+//            try {
+//                messageOutput = new ObjectOutputStream(clientSocket.getOutputStream());
+//                messageListener = new MessageListener(clientSocket.getInputStream());
+//            } catch (IOException e) {
+//                System.err.println("could not get input or output");
+//                closeConnections();
+//            }
             messageListener.start();
             //debug
+            connected = true;
             System.out.println("powstal serwer");
             //nie zamknie sie za szybko?
 
@@ -124,5 +144,8 @@ public class NetworkManager {
             }
 
         }
+    }
+    public boolean isConnected(){
+        return connected;
     }
 }

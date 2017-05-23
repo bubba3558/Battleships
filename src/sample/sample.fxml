@@ -208,7 +208,7 @@
                       <RowConstraints maxHeight="268.0" minHeight="10.0" prefHeight="78.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="195.0" text="Gotowy" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Button fx:id="restartButton" mnemonicParsing="false" onAction="#restart" prefHeight="44.0" prefWidth="195.0" text="Gotowy" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <GridPane>
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="476.0" minWidth="10.0" prefWidth="75.0" />
@@ -448,7 +448,7 @@
                      </children></VBox>
                </children>
             </GridPane>
-            <TextArea fx:id="textField" editable="false" prefHeight="200.0" prefWidth="200.0" text="Ustaw statki&#10;Aby ustawić statek wybierz jego orientację, a następnie kliknij na jego rufę. &#10;Następnie wybierz na swojej mapie pole gdzie ma znajdować się rufa.&#10;" GridPane.columnIndex="2" />
+            <TextArea fx:id="textField" editable="false" prefHeight="200.0" prefWidth="200.0" text="Ustaw statki&#10;Aby ustawić statek wybierz jego orientację, a następnie wybierz miejsce na mapie, na którym ma znalezc sie jego dziob. &#10;Następnie wybierz, ktory statke chcesz ustawic.&#10;" GridPane.columnIndex="2" />
          </children>
       </GridPane>
    </content>

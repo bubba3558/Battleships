@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
 import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;;
 import javafx.scene.*;
@@ -19,6 +20,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.*;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -41,6 +43,7 @@ public class Controller implements Initializable {
     @FXML private Shape triangle2b;
     @FXML private Shape triangle2c;
     @FXML private Label orientationText;
+    @FXML private Button restartButton;
 
     private Cell [][]opponentBoard;
     private Cell [][]myBoard;
@@ -121,7 +124,7 @@ public class Controller implements Initializable {
             setSafetyColumn(x, y);
         }
         else {
-            setSafetyRow(x,y);
+            setSafetyRow(x,y-1);
             for (int i = 0; i < length; ++i, ++y) {
                 setSafetyRow(x,y);
                 opponentBoard[x][y].setStyle("-fx-background-color: " + HITSUNKCOLOR);
@@ -173,6 +176,11 @@ public class Controller implements Initializable {
                 {
                     @Override
                     public void handle(MouseEvent t) {
+                        if (game.isGameEnd()){
+                            printMessage("Gra zakonczona, kliknij restart aby zaczac kolejna");
+                            return;
+
+                        }
                         if (!game.isPrepared()){
                             printMessage("czekaj az Ty i przeciwnik ustawicie statki");
                             return;
@@ -329,5 +337,13 @@ public class Controller implements Initializable {
         }
     }
 
+    public void restart(){
+        if(!game.isGameEnd()){
+            printMessage("dokoncz gre abyja zrestartowac");
+            return;
+        }
+        Stage stage = (Stage) restartButton.getScene().getWindow();
+        stage.close();
+    }
 
 }
