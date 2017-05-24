@@ -14,7 +14,7 @@
 <?import javafx.scene.control.Label?>
 
 
-<AnchorPane prefHeight="848.0" prefWidth="1153.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphic.Controller">
+<AnchorPane prefHeight="848.0" prefWidth="1153.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller">
    <children>
       <GridPane layoutX="12.0" layoutY="12.0" prefHeight="824.0" prefWidth="1130.0">
          <columnConstraints>

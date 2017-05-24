@@ -1,8 +1,9 @@
-package Logic;
+package test.java;
 
 import Logic.Board;
 import Logic.Orientation;
 import Logic.Ship;
+import Logic.FieldType;
 import exception.OutOfBoardException;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Test;

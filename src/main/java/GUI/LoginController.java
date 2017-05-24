@@ -1,7 +1,6 @@
-package graphic;
+package GUI;
 
 import Logic.Game;
-import Logic.Main;
 import Network.NetworkManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -10,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -37,14 +37,14 @@ public class LoginController {
             textWho.setText("Chce dolaczyc do gry");
             textIP.setText("ID hosta: ");
             textPort.setText("numer portu hosta: ");
-            errorText.setText("");
+            logText.setText("");
         }
         else {
             wantToBeHost=true;
             textWho.setText("Chce stworzyc nowa gre");
             textIP.setText("Twoje IP:");
             textPort.setText("numer portu: ");
-            errorText.setText("Po kliknieciu polacz poczekaj na 2 gracza");
+            logText.setText("Po kliknieciu polacz poczekaj na 2 gracza");
         }
     }
     public void getIP(){
@@ -68,17 +68,19 @@ public class LoginController {
 
         }
     public void startGame() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/graphic/sample.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainScene.fxml"));
         Parent root = loader.load();
         Controller controller = (Controller) loader.getController();
         game = new Game(wantToBeHost, networkManager, controller);
         controller.setGame(game);
         networkManager.setGame(game);
         Scene scene = new Scene(root);
-        Main.getStage().setScene(scene);
+        Stage stage= (Stage) errorText.getScene().getWindow();
+        stage.setScene(scene);
         Platform.setImplicitExit(false);
-        Main.getStage().setOnCloseRequest(e-> {
+        stage.setOnCloseRequest(e-> {
             networkManager.closeConnections();
+            Platform.exit();
         });
     }
 

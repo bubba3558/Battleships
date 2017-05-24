@@ -3,7 +3,7 @@ package Logic;
 import Network.*;
 import exception.CollisionException;
 import exception.OutOfBoardException;
-import graphic.Controller;
+import GUI.Controller;
 
 import java.awt.Point;
 

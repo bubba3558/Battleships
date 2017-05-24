@@ -1,4 +1,4 @@
-package graphic;
+package GUI;
 import Logic.*;
 
 import exception.CollisionException;
@@ -6,21 +6,15 @@ import exception.OutOfBoardException;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;;
-import javafx.scene.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.shape.*;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -45,7 +39,7 @@ public class Controller implements Initializable {
     @FXML private Label orientationText;
     @FXML private Button restartButton;
 
-    private Cell [][]opponentBoard;
+    private Cell[][]opponentBoard;
     private Cell [][]myBoard;
     public final static String HITFLOATINGCOLOR="#ff0303";
     public final static String HITSUNKCOLOR="#930505";
@@ -85,15 +79,7 @@ public class Controller implements Initializable {
     public void setGame(Game game){
         this.game=game;
     }
-//    public void placeShips(){
-//        if (placedShipsNo < SHIPSNO){
-//            printMessage("Umiesc wszystkie statki\n" +
-//                    "Aby ustawić statek wybierz jego orientację, a następnie kliknij na jego rufę. \n" +
-//                    "Następnie wybierz na swojej mapie pole gdzie ma znajdować się rufa. ");
-//            return;
-//            }
-//        printMessage("ustawiles statki, czekaj na przeciwnika");
-//    }
+
     public void setMiss(int x, int y ){
         opponentBoard[x][y].setStyle("-fx-background-color: "+MISSCOLOR);//getChildren().add(new Rectangle(15,15));
         printMessage("Pudlo, kolej przeciwnika");

@@ -13,7 +13,7 @@ public class Board {
     private Field[][] board;
     private int height;
     private int width;
-    private FieldType Fie;
+
 
     public Board (){
         height=0;
