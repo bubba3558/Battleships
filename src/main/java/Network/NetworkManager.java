@@ -1,6 +1,13 @@
 package Network;
 
+import GUI.Controller;
+import GUI.LoginController;
 import Logic.Game;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -12,49 +19,78 @@ import java.net.*;
 public class NetworkManager {
     private Game game;
     private boolean isHost;
-    private boolean connected=false ;
+    private boolean connected = false;
     private int port;
     private String serverIP;
     private ObjectOutputStream messageOutput = null;
     private MessageListener messageListener = null;
     private Socket clientSocket = null;
     private ServerSocket serverSocket = null;
+    private LoginController controller;
 
-    public NetworkManager( boolean isHost, int port, String serverIP) {
+    public NetworkManager(boolean isHost, int port, String serverIP, LoginController controller) throws IOException{
         this.isHost = isHost;
         this.serverIP = serverIP;
         this.port = port;
-    }
-    public boolean initConnection()  {
-        try{
-             if (isHost) {
-                serverSocket = new ServerSocket(port);
-                serverSocket.setSoTimeout(40000);
-                clientSocket = serverSocket.accept();
-                connected = true;
-            } else {
-            clientSocket = new Socket(serverIP, port);
-            }
-        }catch (IOException e) {
-            System.err.println("Could not connect");
-            e.printStackTrace();
-            return false;
-            }
-        try {
-           messageOutput = new ObjectOutputStream(clientSocket.getOutputStream());
-           messageListener = new MessageListener(clientSocket.getInputStream());
-        } catch (IOException e) {
-            System.err.println("could not get input or output");
-            closeConnections();
-            return false;
+        this.controller=controller;
+
+        if(isHost) {
+            serverSocket = new ServerSocket(port);
+            serverSocket.setSoTimeout(40000);
         }
-        ( new ServerThread() ).start();
-    return true;
+        else {
+            clientSocket = new Socket(serverIP, port);
+            connected = true;
+        }
     }
+
+    public void run() {
+        (new ServerThread()).start();
+    }
+
+    private class ServerThread extends Thread {
+
+        public void run() {
+            if (isHost) {
+                try {
+                    clientSocket = serverSocket.accept();
+                    connected = true;
+                } catch (IOException e) {
+                    sendErrorMessage("Nikt do Ciebie nie dolaczyl w przewidzianym czasie");
+                    closeConnections();
+                    e.printStackTrace();
+                }
+            }
+            try {
+                messageOutput = new ObjectOutputStream(clientSocket.getOutputStream());
+                messageListener = new MessageListener(clientSocket.getInputStream());
+
+            }catch(IOException e){
+                    sendErrorMessage("Nie udało sie utorzyc streamow");
+                    closeConnections();
+                    e.printStackTrace();
+                }
+            messageListener.start();
+                Platform.runLater(new Runnable() {//connected so change scene and allow to play!
+                    @Override
+                    public void run() {
+
+                        try {
+                            controller.startGame();
+                        } catch (IOException e) {
+                            sendErrorMessage("oops cos poszlo nie tak przy ladowaniu widoku gry");
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+        }
+
+    }
+
     public void setGame(Game game) {//message handler
         this.game=game;
     }
-
     public void closeConnections() {
         try {
             if (serverSocket != null && !serverSocket.isClosed())
@@ -66,7 +102,7 @@ public class NetworkManager {
             if( messageListener != null)
                 messageListener.MessageInput.close();
         } catch (IOException e) {
-            System.err.println("Server could not made connection");
+            System.err.println("Error when closing connection");
             e.printStackTrace();
         }
     }
@@ -82,23 +118,17 @@ public class NetworkManager {
         }
         return true;
     }
-    private class ServerThread extends Thread {
-
-        public void run() {
-            messageListener.start();
-            connected = true;
-
-        }
-    }
 
     private class MessageListener extends Thread {
         ObjectInputStream MessageInput;
 
         public MessageListener(InputStream stream) {
             try {
-                MessageInput = new ObjectInputStream(stream); //!!aa moze bebznwej instan cji
+                MessageInput = new ObjectInputStream(stream);
             } catch (IOException e) {
-                System.err.println("Could not get input");
+                sendErrorMessage("Nie udalo sie utowrzyc streamu dla wiadomosci");
+                e.printStackTrace();
+                closeConnections();
             }
         }
 
@@ -113,13 +143,23 @@ public class NetworkManager {
                 }
             } catch (ClassNotFoundException e) {
                 System.err.println("Can not recognise recived message");
+                e.printStackTrace();
             } catch (IOException e) {
                 System.err.println("Could not get input");
+                e.printStackTrace();
             } catch (Exception e) {
                 System.err.println("Incorrect message");
                 e.printStackTrace();
             }
 
         }
+    }
+    public void sendErrorMessage(String text){
+        Platform.runLater(new Runnable() {//connected so change scene and allow to play!
+            @Override
+            public void run() {
+                controller.printError(text);
+            }
+        });
     }
 }

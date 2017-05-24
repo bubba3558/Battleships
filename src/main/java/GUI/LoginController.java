@@ -12,16 +12,19 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * Created by Martyna on 23.05.2017.
  */
 public class LoginController {
     private boolean wantToBeHost = true;
-    NetworkManager networkManager;
+    private NetworkManager networkManager;
     private String IP;
     private int portNo;
     private Game game;
+    private boolean tryingToConnect=false;
 
     @FXML private Label textWho;
     @FXML private Label textIP;
@@ -31,7 +34,10 @@ public class LoginController {
     @FXML private Label errorText;
     @FXML private Label logText;
 
+
     public void changeHost(){
+        if(tryingToConnect)
+            return;
         if (wantToBeHost){
             wantToBeHost=false;
             textWho.setText("Chce dolaczyc do gry");
@@ -48,40 +54,61 @@ public class LoginController {
         }
     }
     public void getIP(){
+        if( tryingToConnect)
+            return;
         IP=IPfield.getText();
         System.out.println(IP);
     }
     public void getPortNo(){
+        if( tryingToConnect)
+            return;
         portNo=Integer.parseInt(portNoField.getText());
         System.out.println(portNo);
     }
+    public void printError(String text){
+        errorText.setText(text);
+        tryingToConnect=false;
+    }
         public void connect()throws IOException{
+            if( tryingToConnect)
+                return;
+            logText.setText("czekaj na 2 gracza");
             getIP();
             getPortNo();
-            networkManager= new NetworkManager(wantToBeHost, portNo, IP);
-            if(networkManager.initConnection())
-                startGame();
-            else{
+            try {
+                tryingToConnect=true;
+                networkManager= new NetworkManager(wantToBeHost, portNo, IP, this);
+                networkManager.run();
+            }catch (Exception e){
                 errorText.setText("Nie udalo sie utworzyc polaczeni :(  Czy na pewno podales wlasciwe numery? \n Moze port "+ portNo+ " jest zajety?");
+                networkManager.closeConnections();
                 networkManager=null;
+                tryingToConnect=false;
             }
 
         }
+    public Stage getStage(){
+        return (Stage) errorText.getScene().getWindow();
+    }
+    public void cancelConnection(){
+        if(networkManager!=null)
+            networkManager.closeConnections();
+        networkManager=null;
+        logText.setText("");
+        tryingToConnect=false;
+    }
+
     public void startGame() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainScene.fxml"));
         Parent root = loader.load();
-        Controller controller = (Controller) loader.getController();
-        game = new Game(wantToBeHost, networkManager, controller);
-        controller.setGame(game);
+        Controller gameController = (Controller) loader.getController();
+        game = new Game(wantToBeHost, networkManager, gameController);
+        gameController.setGame(game);
         networkManager.setGame(game);
-        Scene scene = new Scene(root);
         Stage stage= (Stage) errorText.getScene().getWindow();
+        Scene scene = new Scene(root);
         stage.setScene(scene);
         Platform.setImplicitExit(false);
-        stage.setOnCloseRequest(e-> {
-            networkManager.closeConnections();
-            Platform.exit();
-        });
     }
 
 
