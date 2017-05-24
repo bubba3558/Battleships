@@ -17,9 +17,12 @@ public class Main extends Application {
              Parent root = loader.load();
              controller = (LoginController) loader.getController();
              Scene scene = new Scene(root);
-             Platform.setImplicitExit(false);
              stage.setScene(scene);
              stage.show();
+             stage.setOnCloseRequest(e-> {
+                controller.cancelConnection();
+                Platform.exit();
+            });
 
     }
 

@@ -5,6 +5,7 @@ import Network.NetworkManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -34,7 +35,6 @@ public class LoginController {
     @FXML private Label errorText;
     @FXML private Label logText;
 
-
     public void changeHost(){
         if(tryingToConnect)
             return;
@@ -57,45 +57,40 @@ public class LoginController {
         if( tryingToConnect)
             return;
         IP=IPfield.getText();
-        System.out.println(IP);
     }
     public void getPortNo(){
         if( tryingToConnect)
             return;
         portNo=Integer.parseInt(portNoField.getText());
-        System.out.println(portNo);
     }
     public void printError(String text){
         errorText.setText(text);
-        tryingToConnect=false;
+        setTryingToConnectFalse();
     }
         public void connect()throws IOException{
+            errorText.setText("");
             if( tryingToConnect)
                 return;
             logText.setText("czekaj na 2 gracza");
             getIP();
             getPortNo();
             try {
-                tryingToConnect=true;
+                setTryingToConnectTrue();
                 networkManager= new NetworkManager(wantToBeHost, portNo, IP, this);
                 networkManager.run();
             }catch (Exception e){
                 errorText.setText("Nie udalo sie utworzyc polaczeni :(  Czy na pewno podales wlasciwe numery? \n Moze port "+ portNo+ " jest zajety?");
-                networkManager.closeConnections();
-                networkManager=null;
-                tryingToConnect=false;
+                cancelConnection();
             }
 
         }
-    public Stage getStage(){
-        return (Stage) errorText.getScene().getWindow();
-    }
+
     public void cancelConnection(){
         if(networkManager!=null)
             networkManager.closeConnections();
         networkManager=null;
         logText.setText("");
-        tryingToConnect=false;
+        setTryingToConnectFalse();
     }
 
     public void startGame() throws IOException {
@@ -108,7 +103,19 @@ public class LoginController {
         Stage stage= (Stage) errorText.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        Platform.setImplicitExit(false);
+        stage.setOnCloseRequest(e-> {
+            networkManager.closeConnections();
+            Platform.exit();
+        });
+    }
+    private void setTryingToConnectFalse() {
+        tryingToConnect = false;
+        logText.setText("");
+    }
+    private void setTryingToConnectTrue(){
+        logText.setText("Czekaj na drugiego gracza");
+        errorText.setText("");
+        tryingToConnect=true;
     }
 
 

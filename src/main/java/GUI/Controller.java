@@ -274,6 +274,10 @@ public class Controller implements Initializable {
             printMessage("wybierz pole dla rufy");
             return false;
         }
+        if (shipsToPlace==0){
+            printMessage("ustawiles juz statki");
+            return false;
+        }
         int x = startX, y = startY;                     //in case it will be changed
         Orientation tempOrientation = orientation;
         try {
@@ -288,8 +292,8 @@ public class Controller implements Initializable {
         colorShipFieldsAndSafetyZone(tempOrientation, length, x, y);
         --shipsToPlace;
         if(shipsToPlace==0) {
-            game.sendReadyMessage();
             printMessage("ustawiles statki. czekaj na przeciwnika");
+            game.sendReadyMessage();
         }
 
         return true;
@@ -325,8 +329,10 @@ public class Controller implements Initializable {
     }
 
     public void restartGame(){
-        if( !game.isGameEnd())
+        if( !game.isGameEnd()) {
             printMessage("zakoncz gre, aby ja zresetowac");
+            return;
+        }
         game.setRestart();
     }
 

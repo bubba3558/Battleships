@@ -35,7 +35,7 @@ public class NetworkManager {
         this.controller=controller;
 
         if(isHost) {
-            serverSocket = new ServerSocket(port);
+            serverSocket = new ServerSocket(port,1);
             serverSocket.setSoTimeout(40000);
         }
         else {

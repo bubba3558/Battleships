@@ -106,8 +106,7 @@ public class Game {
     public void sendReadyMessage(){
         youAreReady=true;
         checkIfGameIsReady();
-        if(!gamePrepared);
-            netManager.sendMessage(Message.getReadyToPlayMessage());
+        netManager.sendMessage(Message.getReadyToPlayMessage());
     }
     public boolean isPrepared(){
         return gamePrepared;
