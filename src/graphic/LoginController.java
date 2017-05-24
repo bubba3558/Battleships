@@ -1,8 +1,8 @@
-package sample;
+package graphic;
 
 import Logic.Game;
+import Logic.Main;
 import Network.NetworkManager;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +10,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -69,16 +68,16 @@ public class LoginController {
 
         }
     public void startGame() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/sample.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/graphic/sample.fxml"));
         Parent root = loader.load();
         Controller controller = (Controller) loader.getController();
         game = new Game(wantToBeHost, networkManager, controller);
         controller.setGame(game);
         networkManager.setGame(game);
         Scene scene = new Scene(root);
-        Main.stage.setScene(scene);
+        Main.getStage().setScene(scene);
         Platform.setImplicitExit(false);
-        Main.stage.setOnCloseRequest(e-> {
+        Main.getStage().setOnCloseRequest(e-> {
             networkManager.closeConnections();
         });
     }

@@ -1,13 +1,12 @@
-package sample;
+package Logic;
 
-import Logic.Game;
+import graphic.LoginController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import sample.Controller;
 
 
 public class Main extends Application {
@@ -16,7 +15,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
             this.stage=stage;
-             FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/login.fxml"));
+             FXMLLoader loader = new FXMLLoader(getClass().getResource("/graphic/login.fxml"));
              Parent root = loader.load();
              controller = (LoginController) loader.getController();
              Scene scene = new Scene(root);
@@ -27,5 +26,8 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+    public static Stage getStage(){
+        return stage;
     }
 }

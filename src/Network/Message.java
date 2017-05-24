@@ -79,7 +79,4 @@ public class Message  implements Serializable {
     public static Message getRestartMessage (){
         return new Message (MessageType.RESTART);
     }
-    public static Message getErrorMessage (){
-        return new Message (MessageType.ERROR);
-    }
 }

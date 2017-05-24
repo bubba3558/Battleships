@@ -3,9 +3,7 @@ package Logic;
 import Network.*;
 import exception.CollisionException;
 import exception.OutOfBoardException;
-import javafx.stage.Stage;
-import sample.Controller;
-import sample.LoginController;
+import graphic.Controller;
 
 import java.awt.Point;
 

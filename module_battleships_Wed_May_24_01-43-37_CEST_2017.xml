@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_battleships" default="compile.module.battleships">
+  <dirname property="module.battleships.basedir" file="${ant.file.module_battleships}"/>
+  
+  <property name="module.jdk.home.battleships" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.battleships" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.battleships" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.battleships" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="battleships.output.dir" value="${module.battleships.basedir}/out/production/Battleships"/>
+  <property name="battleships.testoutput.dir" value="${module.battleships.basedir}/out/test/Battleships"/>
+  
+  <path id="battleships.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="battleships.module.production.classpath">
+    <path refid="${module.jdk.classpath.battleships}"/>
+    <path refid="library.arquillian_junit:release.classpath"/>
+    <path refid="library.arquillian_testng:release.classpath"/>
+  </path>
+  
+  <path id="battleships.runtime.production.module.classpath">
+    <pathelement location="${battleships.output.dir}"/>
+    <path refid="library.arquillian_junit:release.classpath"/>
+    <path refid="library.arquillian_testng:release.classpath"/>
+  </path>
+  
+  <path id="battleships.module.classpath">
+    <path refid="${module.jdk.classpath.battleships}"/>
+    <pathelement location="${battleships.output.dir}"/>
+    <path refid="library.arquillian_junit:release.classpath"/>
+    <path refid="library.arquillian_testng:release.classpath"/>
+  </path>
+  
+  <path id="battleships.runtime.module.classpath">
+    <pathelement location="${battleships.testoutput.dir}"/>
+    <pathelement location="${battleships.output.dir}"/>
+    <path refid="library.arquillian_junit:release.classpath"/>
+    <path refid="library.arquillian_testng:release.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.battleships">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.battleships">
+    <patternset refid="excluded.from.module.battleships"/>
+  </patternset>
+  
+  <path id="battleships.module.sourcepath">
+    <dirset dir="${module.battleships.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.battleships" depends="compile.module.battleships.production,compile.module.battleships.tests" description="Compile module Battleships"/>
+  
+  <target name="compile.module.battleships.production" depends="register.custom.compilers" description="Compile module Battleships; production classes">
+    <mkdir dir="${battleships.output.dir}"/>
+    <javac2 destdir="${battleships.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.battleships}/javac">
+      <compilerarg line="${compiler.args.battleships}"/>
+      <bootclasspath refid="battleships.module.bootclasspath"/>
+      <classpath refid="battleships.module.production.classpath"/>
+      <src refid="battleships.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.battleships"/>
+    </javac2>
+    
+    <copy todir="${battleships.output.dir}">
+      <fileset dir="${module.battleships.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.battleships.tests" depends="register.custom.compilers,compile.module.battleships.production" description="compile module Battleships; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.battleships" description="cleanup module">
+    <delete dir="${battleships.output.dir}"/>
+    <delete dir="${battleships.testoutput.dir}"/>
+  </target>
+</project>
