@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.*?>
@@ -12,7 +13,6 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-
 
 <AnchorPane prefHeight="848.0" prefWidth="1153.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller">
    <children>
@@ -411,9 +411,9 @@
                         </GridPane>
                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                            <children>
-                              <Label fx:id="pointText" prefHeight="35.0" prefWidth="80.0" text="-">
+                              <Label fx:id="errorField" prefHeight="56.0" prefWidth="797.0" textFill="#dd1212">
                                  <font>
-                                    <Font size="24.0" />
+                                    <Font size="20.0" />
                                  </font>
                               </Label>
                            </children>
@@ -439,20 +439,22 @@
                         <Label layoutX="70.0" layoutY="43.0" prefHeight="21.0" prefWidth="99.0" text="woda" />
                         <Label layoutX="70.0" layoutY="100.0" prefHeight="21.0" prefWidth="99.0" text="statek" />
                         <Label layoutX="70.0" layoutY="156.0" prefHeight="21.0" prefWidth="99.0" text="pudlo" />
-                        <Pane layoutX="14.0" layoutY="207.0" prefHeight="31.0" prefWidth="32.0" style="-fx-background-color: #930505;" />
+                        <Pane layoutX="14.0" layoutY="319.0" prefHeight="31.0" prefWidth="32.0" style="-fx-background-color: #930505;" />
                         <Pane layoutX="14.0" layoutY="265.0" prefHeight="31.0" prefWidth="32.0" style="-fx-background-color: #ff0303;" />
-                        <Label layoutX="70.0" layoutY="212.0" prefHeight="21.0" prefWidth="123.0" text="trafiony zatopiony" />
+                        <Label layoutX="70.0" layoutY="324.0" prefHeight="21.0" prefWidth="123.0" text="trafiony zatopiony" />
                         <Label layoutX="70.0" layoutY="257.0" prefHeight="47.0" prefWidth="123.0" text="trafiony jeszcze pływa" wrapText="true" />
                         <Label layoutX="70.0" layoutY="2.0" prefHeight="21.0" prefWidth="82.0" text="LEGENDA">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
+                        <Label layoutX="70.0" layoutY="215.0" prefHeight="21.0" prefWidth="123.0" text="pole zabronione" />
+                        <Pane layoutX="14.0" layoutY="210.0" prefHeight="31.0" prefWidth="32.0" style="-fx-background-color: #8898cc;" />
                      </children>
                   </AnchorPane>
                </children>
             </GridPane>
-            <TextArea fx:id="textField" editable="false" prefHeight="81.0" prefWidth="905.0" text="Ustaw statki&#10;Aby ustawić statek wybierz jego orientację, a następnie wybierz miejsce na mapie, na którym ma znalezc sie jego dziob. &#10;Następnie wybierz, ktory statke chcesz ustawic.&#10;" GridPane.columnIndex="2" />
+            <TextArea fx:id="textField" editable="false" prefHeight="81.0" prefWidth="905.0" text="Ustaw statki&#10;Aby ustawić statek wybierz jego orientację, wybierz miejsce na mapie, na którym ma znalezc sie jego dziób. &#10;Na koniec wybierz, który statek chcesz ustawić.&#10;" GridPane.columnIndex="2" />
          </children>
       </GridPane>
    </children>

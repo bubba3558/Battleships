@@ -28,10 +28,9 @@ public class BoardTest {
     public void setUp1() {
         setUp0();
         try{
-            board.placeShip(0, 0, ship1);
-            board.placeShip(1, 1, ship2);}
+            board.placeShip(1, 1, ship1);
+            board.placeShip(2, 2, ship2);}
             catch (Exception e){
-                e.printStackTrace();
             }
         }
     @Test
@@ -47,7 +46,6 @@ public class BoardTest {
             board.takeHit(0,1);
             assertEquals("After shooting a field type= shooted = ship",board.getFieldType(0,0), FieldType.SHOTED);
         }catch (Exception e){
-                e.printStackTrace();
         }
     }
     @Test
@@ -62,7 +60,6 @@ public class BoardTest {
             assertTrue("after second hit ship should sunk", ship1.isDestroyed());
             assertFalse(board.takeHit(10, 10) );
         }catch (Exception e){
-            e.printStackTrace();
         }
     }
     @Test(expected = OutOfBoardException.class)

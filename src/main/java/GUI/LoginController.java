@@ -63,7 +63,7 @@ public class LoginController {
             return;
         portNo=Integer.parseInt(portNoField.getText());
     }
-    public void printError(String text){
+    public void getError(String text){
         errorText.setText(text);
         setTryingToConnectFalse();
     }
@@ -79,7 +79,7 @@ public class LoginController {
                 networkManager= new NetworkManager(wantToBeHost, portNo, IP, this);
                 networkManager.run();
             }catch (Exception e){
-                errorText.setText("Nie udalo sie utworzyc polaczeni :(  Czy na pewno podales wlasciwe numery? \n Moze port "+ portNo+ " jest zajety?");
+                errorText.setText("Nie udało się utworzyć polaczenia :(  Czy na pewno podałeś wlaściwe numery? Może port "+ portNo+ " jest zajęty?");
                 cancelConnection();
             }
 

@@ -145,6 +145,7 @@ public class NetworkManager {
                 System.err.println("Can not recognise recived message");
                 e.printStackTrace();
             } catch (IOException e) {
+                game.haveLostConnection();
                 System.err.println("Could not get input");
                 e.printStackTrace();
             } catch (Exception e) {
@@ -155,10 +156,10 @@ public class NetworkManager {
         }
     }
     public void sendErrorMessage(String text){
-        Platform.runLater(new Runnable() {//connected so change scene and allow to play!
+        Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                controller.printError(text);
+                controller.getError(text);
             }
         });
     }

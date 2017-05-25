@@ -4,6 +4,7 @@ import Network.*;
 import exception.CollisionException;
 import exception.OutOfBoardException;
 import GUI.Controller;
+import javafx.application.Platform;
 
 import java.awt.Point;
 
@@ -122,6 +123,15 @@ public class Game {
         if (! board.isFieldInsideBoard(x, y))
             return true;
         return ( board.getFieldType(x,y)==FieldType.WITHSHIP || board.getFieldType(x,y)==FieldType.NEARSHIP );
+    }
+    public void haveLostConnection(){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                controller.printErrorMessage("Utraciłeś połączenie, uruchom gre jeszcze raz");
+            }
+        });
+        gamePrepared=false;
     }
     public boolean isGameEnd(){
         return gameEnd;
