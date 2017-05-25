@@ -1,8 +1,6 @@
-package Network;
+package network;
 
-/**
- * Created by Martyna on 14.05.2017.
- */
+
 public enum MessageType {
     READYTOPLAY,
     ATTACK,

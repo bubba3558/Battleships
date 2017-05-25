@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+<AnchorPane prefHeight="848.0" prefWidth="1153.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller">
+    <children>
+        <GridPane layoutX="12.0" layoutY="12.0" prefHeight="824.0" prefWidth="1130.0">
+            <columnConstraints>
+                <ColumnConstraints />
+                <ColumnConstraints />
+                <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="144.0" minHeight="99.0" prefHeight="117.0" />
+                <RowConstraints maxHeight="694.0" minHeight="649.0" prefHeight="676.0" />
+            </rowConstraints>
+            <children>
+                <GridPane hgap="10.0" prefHeight="771.0" prefWidth="1028.0" vgap="10.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="659.0" minHeight="10.0" prefHeight="438.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="304.0" minHeight="10.0" prefHeight="228.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <GridPane hgap="10.0" prefHeight="428.0" prefWidth="905.0" vgap="10.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints maxHeight="238.0" minHeight="8.0" prefHeight="21.0" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="491.0" minHeight="10.0" prefHeight="407.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <Pane prefHeight="60.0" prefWidth="448.0" style="-fx-background-color: #949cb5;">
+                                    <children>
+                                        <Label alignment="CENTER" layoutX="-6.0" layoutY="-6.0" prefHeight="34.0" prefWidth="463.0" text="Twoja plansza" textAlignment="CENTER" />
+                                    </children>
+                                </Pane>
+                                <GridPane fx:id="myGrid" hgap="2.0" prefHeight="366.0" prefWidth="448.0" vgap="2.0" GridPane.rowIndex="1">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="A" GridPane.columnIndex="1" />
+                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="B" GridPane.columnIndex="2" />
+                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="C" GridPane.columnIndex="3" />
+                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="D" GridPane.columnIndex="4" />
+                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="E" GridPane.columnIndex="5" />
+                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="F" GridPane.columnIndex="6" />
+                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="G" GridPane.columnIndex="7" />
+                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="H" GridPane.columnIndex="8" />
+                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="I" GridPane.columnIndex="9" />
+                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="J" GridPane.columnIndex="10" />
+                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="K" GridPane.columnIndex="11" />
+                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="L" GridPane.columnIndex="12" />
+                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="M" GridPane.columnIndex="13" />
+                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="N" GridPane.columnIndex="14" />
+                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="O" GridPane.columnIndex="15" />
+                                        <Label text="1" GridPane.rowIndex="1" />
+                                        <Label text="2" GridPane.rowIndex="2" />
+                                        <Label text="3" GridPane.rowIndex="3" />
+                                        <Label text="4" GridPane.rowIndex="4" />
+                                        <Label text="5" GridPane.rowIndex="5" />
+                                        <Label text="6" GridPane.rowIndex="6" />
+                                        <Label text="7" GridPane.rowIndex="7" />
+                                        <Label text="8" GridPane.rowIndex="8" />
+                                        <Label text="9" GridPane.rowIndex="9" />
+                                        <Label text="10" GridPane.rowIndex="10" />
+                                        <Label text="11" GridPane.rowIndex="11" />
+                                        <Label text="12" GridPane.rowIndex="12" />
+                                        <Label text="13" GridPane.rowIndex="13" />
+                                        <Label text="14" GridPane.rowIndex="14" />
+                                        <Label text="15" GridPane.rowIndex="15" />
+                                    </children>
+                                </GridPane>
+                                <GridPane fx:id="opponentGrid" hgap="2.0" vgap="2.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <children>
+                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="A" GridPane.columnIndex="1" />
+                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="B" GridPane.columnIndex="2" />
+                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="C" GridPane.columnIndex="3" />
+                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="D" GridPane.columnIndex="4" />
+                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="E" GridPane.columnIndex="5" />
+                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="F" GridPane.columnIndex="6" />
+                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="G" GridPane.columnIndex="7" />
+                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="H" GridPane.columnIndex="8" />
+                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="I" GridPane.columnIndex="9" />
+                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="J" GridPane.columnIndex="10" />
+                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="K" textFill="#58648c" GridPane.columnIndex="11" />
+                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="L" GridPane.columnIndex="12" />
+                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="M" GridPane.columnIndex="13" />
+                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="N" GridPane.columnIndex="14" />
+                                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="26.0" text="O" GridPane.columnIndex="15" />
+                                        <Label text="1" GridPane.rowIndex="1" />
+                                        <Label text="2" GridPane.rowIndex="2" />
+                                        <Label text="3" GridPane.rowIndex="3" />
+                                        <Label text="4" GridPane.rowIndex="4" />
+                                        <Label text="5" GridPane.rowIndex="5" />
+                                        <Label text="6" GridPane.rowIndex="6" />
+                                        <Label text="7" GridPane.rowIndex="7" />
+                                        <Label text="8" GridPane.rowIndex="8" />
+                                        <Label text="9" GridPane.rowIndex="9" />
+                                        <Label text="10" GridPane.rowIndex="10" />
+                                        <Label text="11" GridPane.rowIndex="11" />
+                                        <Label text="12" GridPane.rowIndex="12" />
+                                        <Label text="13" GridPane.rowIndex="13" />
+                                        <Label text="14" GridPane.rowIndex="14" />
+                                        <Label text="15" GridPane.rowIndex="15" />
+                                    </children>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                </GridPane>
+                                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #949cb5;" GridPane.columnIndex="1">
+                                    <children>
+                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="481.0" text="Przeciwnik" />
+                                    </children>
+                                </Pane>
+                            </children>
+                        </GridPane>
+                        <GridPane hgap="5.0" prefHeight="200.0" prefWidth="931.0" vgap="5.0" GridPane.rowIndex="1">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="815.0" minWidth="10.0" prefWidth="653.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="448.0" minWidth="10.0" prefWidth="247.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints maxHeight="268.0" minHeight="10.0" prefHeight="198.0" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="268.0" minHeight="10.0" prefHeight="78.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <Button fx:id="restartButton" mnemonicParsing="false" onAction="#restartGame" prefHeight="44.0" prefWidth="308.0" text="Restart" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="476.0" minWidth="10.0" prefWidth="75.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="476.0" minWidth="10.0" prefWidth="158.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="728.0" minWidth="0.0" prefWidth="74.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="728.0" minWidth="10.0" prefWidth="145.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="728.0" minWidth="10.0" prefWidth="226.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Polygon fx:id="triangle3a" fill="DODGERBLUE" onMouseClicked="#placeShipL3a" rotate="-90.0" scaleX="0.3" scaleY="0.3" stroke="BLACK" strokeType="INSIDE" GridPane.rowIndex="3">
+                                            <points>
+                                                <Double fx:value="-50.0" />
+                                                <Double fx:value="40.0" />
+                                                <Double fx:value="50.0" />
+                                                <Double fx:value="40.0" />
+                                                <Double fx:value="0.0" />
+                                                <Double fx:value="-60.0" />
+                                            </points>
+                                        </Polygon>
+                                        <Polygon fx:id="triangle4a" fill="DODGERBLUE" onMouseClicked="#placeShipL4a" rotate="-90.0" scaleX="0.3" scaleY="0.3" stroke="BLACK" strokeType="INSIDE" GridPane.rowIndex="1">
+                                            <points>
+                                                <Double fx:value="-50.0" />
+                                                <Double fx:value="40.0" />
+                                                <Double fx:value="50.0" />
+                                                <Double fx:value="40.0" />
+                                                <Double fx:value="0.0" />
+                                                <Double fx:value="-60.0" />
+                                            </points>
+                                        </Polygon>
+                                        <Polygon fx:id="triangle5" fill="DODGERBLUE" layoutX="10.0" onMouseClicked="#placeShipL5" rotate="-90.0" scaleX="0.3" scaleY="0.3" stroke="BLACK" strokeType="INSIDE">
+                                            <points>
+                                                <Double fx:value="-50.0" />
+                                                <Double fx:value="40.0" />
+                                                <Double fx:value="50.0" />
+                                                <Double fx:value="40.0" />
+                                                <Double fx:value="0.0" />
+                                                <Double fx:value="-60.0" />
+                                            </points>
+                                        </Polygon>
+                                        <Polygon fx:id="triangle4b" fill="DODGERBLUE" onMouseClicked="#placeShipL4b" rotate="-90.0" scaleX="0.3" scaleY="0.3" stroke="BLACK" strokeType="INSIDE" GridPane.rowIndex="2">
+                                            <points>
+                                                <Double fx:value="-50.0" />
+                                                <Double fx:value="40.0" />
+                                                <Double fx:value="50.0" />
+                                                <Double fx:value="40.0" />
+                                                <Double fx:value="0.0" />
+                                                <Double fx:value="-60.0" />
+                                            </points>
+                                        </Polygon>
+                                        <Polygon fx:id="triangle3b" fill="DODGERBLUE" layoutX="60.0" layoutY="41.0" onMouseClicked="#placeShipL3b" rotate="-90.0" scaleX="0.3" scaleY="0.3" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2">
+                                            <points>
+                                                <Double fx:value="-50.0" />
+                                                <Double fx:value="40.0" />
+                                                <Double fx:value="50.0" />
+                                                <Double fx:value="40.0" />
+                                                <Double fx:value="0.0" />
+                                                <Double fx:value="-60.0" />
+                                            </points>
+                                        </Polygon>
+                                        <Polygon fx:id="triangle2b" fill="DODGERBLUE" layoutX="60.0" layoutY="41.0" onMouseClicked="#placeShipL2b" rotate="-90.0" scaleX="0.3" scaleY="0.3" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                            <points>
+                                                <Double fx:value="-50.0" />
+                                                <Double fx:value="40.0" />
+                                                <Double fx:value="50.0" />
+                                                <Double fx:value="40.0" />
+                                                <Double fx:value="0.0" />
+                                                <Double fx:value="-60.0" />
+                                            </points>
+                                        </Polygon>
+                                        <Polygon fx:id="triangle2c" fill="DODGERBLUE" layoutX="60.0" layoutY="41.0" onMouseClicked="#placeShipL2c" rotate="-90.0" scaleX="0.3" scaleY="0.3" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                            <points>
+                                                <Double fx:value="-50.0" />
+                                                <Double fx:value="40.0" />
+                                                <Double fx:value="50.0" />
+                                                <Double fx:value="40.0" />
+                                                <Double fx:value="0.0" />
+                                                <Double fx:value="-60.0" />
+                                            </points>
+                                        </Polygon>
+                                        <Polygon fx:id="triangle2a" fill="DODGERBLUE" layoutX="60.0" layoutY="41.0" onMouseClicked="#placeShipL2a" rotate="-90.0" scaleX="0.3" scaleY="0.3" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                            <points>
+                                                <Double fx:value="-50.0" />
+                                                <Double fx:value="40.0" />
+                                                <Double fx:value="50.0" />
+                                                <Double fx:value="40.0" />
+                                                <Double fx:value="0.0" />
+                                                <Double fx:value="-60.0" />
+                                            </points>
+                                        </Polygon>
+                                        <HBox alignment="CENTER_LEFT" prefHeight="41.0" prefWidth="137.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                            <children>
+                                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="40.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+                                            <children>
+                                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="40.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="70.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="10.0" layoutY="16.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER_LEFT" prefHeight="41.0" prefWidth="23.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                            <children>
+                                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="40.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="70.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                            <children>
+                                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="40.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="70.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="436.0" GridPane.columnIndex="3">
+                                            <children>
+                                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="40.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                            <children>
+                                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                            <children>
+                                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                                            <children>
+                                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </GridPane>
+                                <GridPane alignment="CENTER" prefHeight="163.0" prefWidth="314.0" GridPane.columnIndex="1">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="99.0" minWidth="0.0" prefWidth="96.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="104.0" minWidth="0.0" prefWidth="81.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="91.0" minWidth="10.0" prefWidth="68.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="40.0" stroke="BLACK" strokeType="INSIDE" translateX="10.0" width="40.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <Polygon fx:id="horizTriangle" fill="DODGERBLUE" rotate="-90.0" scaleX="0.4" scaleY="0.4" stroke="BLACK" strokeType="INSIDE" translateX="37.0" GridPane.rowIndex="1">
+                                            <points>
+                                                <Double fx:value="-50.0" />
+                                                <Double fx:value="40.0" />
+                                                <Double fx:value="50.0" />
+                                                <Double fx:value="40.0" />
+                                                <Double fx:value="0.0" />
+                                                <Double fx:value="-60.0" />
+                                            </points>
+                                        </Polygon>
+                                        <Polygon fx:id="verticTriangle" fill="DODGERBLUE" opacity="0.0" scaleX="0.4" scaleY="0.4" stroke="BLACK" strokeType="INSIDE" translateX="-20.0" translateY="15.0" GridPane.columnIndex="1">
+                                            <points>
+                                                <Double fx:value="-50.0" />
+                                                <Double fx:value="40.0" />
+                                                <Double fx:value="50.0" />
+                                                <Double fx:value="40.0" />
+                                                <Double fx:value="0.0" />
+                                                <Double fx:value="-60.0" />
+                                            </points>
+                                        </Polygon>
+                                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changeOrientation" prefHeight="33.0" prefWidth="68.0" text="Zmien" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                        <Label prefHeight="21.0" prefWidth="92.0" text="Orientacja" GridPane.rowIndex="2">
+                                            <font>
+                                                <Font size="14.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="orientationText" prefHeight="20.0" prefWidth="132.0" text="pozioma" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                            <font>
+                                                <Font size="14.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </GridPane>
+                                <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+                                    <children>
+                                        <Label fx:id="errorField" prefHeight="56.0" prefWidth="797.0" textFill="#dd1212">
+                                            <font>
+                                                <Font size="20.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </GridPane>
+                    </children>
+                </GridPane>
+                <GridPane prefHeight="775.0" prefWidth="324.0" GridPane.rowIndex="1">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="573.0" minHeight="10.0" prefHeight="573.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="390.0" minHeight="10.0" prefHeight="220.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <AnchorPane prefHeight="481.0" prefWidth="201.0">
+                            <children>
+                                <Pane layoutX="14.0" layoutY="95.0" prefHeight="31.0" prefWidth="32.0" style="-fx-background-color: #428906;" />
+                                <Pane layoutX="14.0" layoutY="38.0" prefHeight="31.0" prefWidth="32.0" style="-fx-background-color: #5b7cea;" />
+                                <Pane layoutX="14.0" layoutY="151.0" prefHeight="31.0" prefWidth="32.0" style="-fx-background-color: #58648c;" />
+                                <Label layoutX="70.0" layoutY="43.0" prefHeight="21.0" prefWidth="99.0" text="woda" />
+                                <Label layoutX="70.0" layoutY="100.0" prefHeight="21.0" prefWidth="99.0" text="statek" />
+                                <Label layoutX="70.0" layoutY="156.0" prefHeight="21.0" prefWidth="99.0" text="pudlo" />
+                                <Pane layoutX="14.0" layoutY="319.0" prefHeight="31.0" prefWidth="32.0" style="-fx-background-color: #930505;" />
+                                <Pane layoutX="14.0" layoutY="265.0" prefHeight="31.0" prefWidth="32.0" style="-fx-background-color: #ff0303;" />
+                                <Label layoutX="70.0" layoutY="324.0" prefHeight="21.0" prefWidth="123.0" text="trafiony zatopiony" />
+                                <Label layoutX="70.0" layoutY="257.0" prefHeight="47.0" prefWidth="123.0" text="trafiony jeszcze pływa" wrapText="true" />
+                                <Label layoutX="70.0" layoutY="2.0" prefHeight="21.0" prefWidth="82.0" text="LEGENDA">
+                                    <font>
+                                        <Font size="16.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="70.0" layoutY="215.0" prefHeight="21.0" prefWidth="123.0" text="pole zabronione" />
+                                <Pane layoutX="14.0" layoutY="210.0" prefHeight="31.0" prefWidth="32.0" style="-fx-background-color: #8898cc;" />
+                            </children>
+                        </AnchorPane>
+                    </children>
+                </GridPane>
+                <TextArea fx:id="textField" editable="false" prefHeight="81.0" prefWidth="905.0" text="Ustaw statki&#10;Aby ustawić statek wybierz jego orientację, wybierz miejsce na mapie, na którym ma znalezc sie jego dziób. &#10;Na koniec wybierz, który statek chcesz ustawić.&#10;" GridPane.columnIndex="2" />
+            </children>
+        </GridPane>
+    </children>
+</AnchorPane>

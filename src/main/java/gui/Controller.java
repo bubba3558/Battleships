@@ -1,6 +1,4 @@
-package GUI;
-
-import Logic.*;
+package gui;
 
 import exception.CollisionException;
 import exception.OutOfBoardException;
@@ -10,12 +8,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Shape;
+import model.Game;
+import model.Orientation;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -61,7 +60,6 @@ public class Controller implements Initializable {
     public final static String HITSUNKCOLOR = "#930505";
     public final static String MISSCOLOR = "#58648c";
     public final static String SHIPCOLOR = "#428908";
-    public final static String WATERCOLOR = "#5b7cea";
     public final static String SAFETYCOLOR = "#8898cc";
 
     public final static int SHIPSNO = 8;
@@ -98,23 +96,23 @@ public class Controller implements Initializable {
     }
 
     public void setMiss(int x, int y) {
-        opponentBoard[x][y].setStyle("-fx-background-color: " + MISSCOLOR);//getChildren().add(new Rectangle(15,15));
+        opponentBoard[x][y].setColor(MISSCOLOR);
         printMessage("Pudło, kolej przeciwnika");
     }
 
     public void setOpponentMiss(int x, int y) {
         myBoard[x][y].setShoot();
-        myBoard[x][y].setStyle("-fx-background-color: " + MISSCOLOR);
+        myBoard[x][y].setColor(MISSCOLOR);
         printMessage("Przeciwnik spudłowal. Twoja kolej");
     }
 
     public void setShipHit(int x, int y) {
-        opponentBoard[x][y].setStyle("-fx-background-color: " + HITFLOATINGCOLOR);
+        opponentBoard[x][y].setColor(HITFLOATINGCOLOR);
         printMessage("Trafiony!");
     }
 
     public void setYourShipHit(int x, int y) {
-        myBoard[x][y].setStyle("-fx-background-color: " + HITFLOATINGCOLOR);
+        myBoard[x][y].setColor(HITFLOATINGCOLOR);
         printMessage("Zostałeś trafiny :(");
     }
 
@@ -123,14 +121,14 @@ public class Controller implements Initializable {
             setSafetyColumn(x - 1, y);
             for (int i = 0; i < length; ++i, ++x) {
                 setSafetyColumn(x, y);
-                opponentBoard[x][y].setStyle("-fx-background-color: " + HITSUNKCOLOR);
+                opponentBoard[x][y].setColor(HITSUNKCOLOR);
             }
             setSafetyColumn(x, y);
         } else {
             setSafetyRow(x, y - 1);
             for (int i = 0; i < length; ++i, ++y) {
                 setSafetyRow(x, y);
-                opponentBoard[x][y].setStyle("-fx-background-color: " + HITSUNKCOLOR);
+                opponentBoard[x][y].setColor(HITSUNKCOLOR);
             }
             setSafetyRow(x, y);
         }
@@ -151,26 +149,26 @@ public class Controller implements Initializable {
 
     private void setSafetyField(int x, int y) {
         opponentBoard[x][y].setShoot();
-        opponentBoard[x][y].setStyle("-fx-background-color: " + SAFETYCOLOR);
+        opponentBoard[x][y].setColor(SAFETYCOLOR);
     }
 
     public void setYourShipSunk(int x, int y, int length, Orientation orientation) {
         if (orientation == Orientation.HORIZONTAL)
             for (int i = 0; i < length; ++i, ++x) {
-                myBoard[x][y].setStyle("-fx-background-color: " + HITSUNKCOLOR);
+                myBoard[x][y].setColor(HITSUNKCOLOR);
             }
         else
             for (int i = 0; i < length; ++i, ++y) {
-                myBoard[x][y].setStyle("-fx-background-color: " + HITSUNKCOLOR);
+                myBoard[x][y].setColor(HITSUNKCOLOR);
             }
         printMessage("Twój statek zatonął.");
-        //ToDO change other ship fields to sunkcolor
     }
 
 
     public void printMessage(String text) {
         textField.setText(text);
     }
+
     public void printErrorMessage(String text) {
         errorField.setText(text);
     }
@@ -178,13 +176,15 @@ public class Controller implements Initializable {
 
     public void initOpponentBoard() {
 
-        opponentBoard = new Cell[game.BOARDWIDTH + 2][game.BOARDHIGHT + 2];
-        for (int y = 0; y <= game.BOARDWIDTH + 1; ++y) {
-            for (int x = 0; x <= game.BOARDWIDTH + 1; ++x) {
+        opponentBoard = new Cell[Game.BOARDWIDTH + 2][Game.BOARDHIGHT + 2];
+        for (int y = 0; y <= Game.BOARDWIDTH + 1; ++y) {
+            for (int x = 0; x <= Game.BOARDWIDTH + 1; ++x) {
                 Cell cell = new Cell(x, y);
                 opponentBoard[x][y] = cell;
-                if (x == 0 || y == 0 || y == game.BOARDWIDTH + 1 || x == game.BOARDHIGHT + 1)
-                    continue; //add safety frame
+                /**add safety frame*/
+                if (x == 0 || y == 0 || y == Game.BOARDWIDTH + 1 || x == Game.BOARDHIGHT + 1) {
+                    continue;
+                }
                 opponentGrid.add(cell, x, y);
                 cell.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
@@ -217,28 +217,32 @@ public class Controller implements Initializable {
     }
 
     public void initMyBoard() {
-        myBoard = new Cell[game.BOARDWIDTH + 2][game.BOARDHIGHT + 2];
-        for (int y = 0; y <= game.BOARDWIDTH + 1; ++y) {
-            for (int x = 0; x <= game.BOARDWIDTH + 1; ++x) {
+        myBoard = new Cell[Game.BOARDWIDTH + 2][Game.BOARDHIGHT + 2];
+        for (int y = 0; y <= Game.BOARDWIDTH + 1; ++y) {
+            for (int x = 0; x <= Game.BOARDWIDTH + 1; ++x) {
                 Cell cell = new Cell(x, y);
                 myBoard[x][y] = cell;
-                if (x == 0 || y == 0 || y == game.BOARDWIDTH + 1 || x == game.BOARDHIGHT + 1)
-                    continue; //add safety frame
+                if (x == 0 || y == 0 || y == Game.BOARDWIDTH + 1 || x == Game.BOARDHIGHT + 1) {
+                    continue;
+                }
                 myGrid.add(cell, x, y);
                 cell.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
                     @Override
+
                     public void handle(MouseEvent t) {
                         if (shipsToPlace == 0) {
                             printMessage("ustawiles juz statki");
                             return;
                         }
+                        /**change color to WATERCOLOR if ship was not placed*/
                         if (!game.isTaken(startX, startY)) {
-                            myBoard[startX][startY].setStyle("-fx-background-color: " + WATERCOLOR);
+                            myBoard[startX][startY].resetColor();
                         }
                         startY = cell.y;
                         startX = cell.x;
                         if (!game.isTaken(startX, startY))
-                            cell.setStyle("-fx-background-color: " + MISSCOLOR);
+                            cell.setColor(MISSCOLOR);
                         printMessage("Rufa znajdzie się na polu: " + (char) (startX + 64) + startY);
                     }
                 });
@@ -302,7 +306,10 @@ public class Controller implements Initializable {
         }
     }
 
-    public boolean placeShip(int length) {//true-successful
+    /**
+     * return true if successful
+     */
+    public boolean placeShip(int length) {
         if (startX == -1) {
             printMessage("Wybierz pole dla rufy");
             return false;
@@ -311,7 +318,7 @@ public class Controller implements Initializable {
             printMessage("Ustawiłeś już statki");
             return false;
         }
-        int x = startX, y = startY;                     //in case it will be changed
+        int x = startX, y = startY;
         Orientation tempOrientation = orientation;
         try {
             game.addShipToBoard(tempOrientation, length, x, y);
@@ -334,21 +341,22 @@ public class Controller implements Initializable {
 
     private void colorShipFieldsAndSafetyZone(Orientation orientation, int length, int x, int y) {
         if (orientation == Orientation.HORIZONTAL) {
-            setMySafetyColumn(x - 1,y);
+            setMySafetyColumn(x - 1, y);
             for (int i = 0; i < length; ++i, ++x) {
-                setMySafetyColumn(x,y);
-                myBoard[x][y].setStyle("-fx-background-color: " + SHIPCOLOR);
+                setMySafetyColumn(x, y);
+                myBoard[x][y].setColor(SHIPCOLOR);
             }
-            setMySafetyColumn(x,y);
+            setMySafetyColumn(x, y);
         } else {
-            setMySafetyRow(x,y-1);
+            setMySafetyRow(x, y - 1);
             for (int i = 0; i < length; ++i, ++y) {
-                setMySafetyRow(x,y);
-                myBoard[x][y].setStyle("-fx-background-color: " + SHIPCOLOR);
+                setMySafetyRow(x, y);
+                myBoard[x][y].setColor(SHIPCOLOR);
             }
-            setMySafetyRow(x,y);
+            setMySafetyRow(x, y);
         }
     }
+
     private void setMySafetyColumn(int x, int y) {
         setMySafetyField(x, y);
         setMySafetyField(x, y - 1);
@@ -363,7 +371,7 @@ public class Controller implements Initializable {
 
     private void setMySafetyField(int x, int y) {
         myBoard[x][y].setShoot();
-        myBoard[x][y].setStyle("-fx-background-color: " + SAFETYCOLOR);
+        myBoard[x][y].setColor(SAFETYCOLOR);
     }
 
     public void restartGame() {
@@ -382,8 +390,8 @@ public class Controller implements Initializable {
     }
 
     public void resetBoard(Cell[][] board) {
-        for (int y = 0; y <= game.BOARDWIDTH + 1; ++y) {
-            for (int x = 0; x <= game.BOARDWIDTH + 1; ++x) {
+        for (int y = 0; y <= Game.BOARDWIDTH + 1; ++y) {
+            for (int x = 0; x <= Game.BOARDWIDTH + 1; ++x) {
                 board[x][y].reset();
             }
         }
@@ -409,4 +417,3 @@ public class Controller implements Initializable {
         triangle2c.setOpacity(1);
     }
 }
-// komunikat
