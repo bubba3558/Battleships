@@ -1,6 +1,8 @@
 package gui;
 
+import javafx.fxml.Initializable;
 import model.Game;
+import model.LoggingInterface;
 import network.NetworkManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -16,12 +18,10 @@ import java.io.IOException;
 
 public class LoginController {
     private boolean wantToBeHost = true;
-    private NetworkManager networkManager;
     private String ip;
     private int portNo;
-    private Game game;
     private boolean tryingToConnect = false;
-
+    private LoggingInterface loggingInterface;
     @FXML
     private Label textWho;
     @FXML
@@ -36,6 +36,7 @@ public class LoginController {
     private Label errorText;
     @FXML
     private Label logText;
+
 
     public void changeHost() {
         if (tryingToConnect)
@@ -67,53 +68,37 @@ public class LoginController {
         portNo = Integer.parseInt(portNoField.getText());
     }
 
-    public void getError(String text) {
+    public void setLoggingInterface(LoggingInterface loggingInterface) {
+        this.loggingInterface = loggingInterface;
+    }
+    public void cancelConnection() {
+        loggingInterface.cancelConnection();
+    }
+
+    public void printError(String text) {
         errorText.setText(text);
         setTryingToConnectFalse();
     }
 
     public void connect() throws IOException {
         errorText.setText("");
-        if (tryingToConnect)
+        if (tryingToConnect) {
+            errorText.setText("Próbujesz się już łączyć");
             return;
+        }
         logText.setText("czekaj na 2 gracza");
         getIp();
         getPortNo();
-        try {
-            setTryingToConnectTrue();
-            networkManager = new NetworkManager(wantToBeHost, portNo, ip, this);
-            networkManager.run();
-        } catch (Exception e) {
-            errorText.setText("Nie udało się utworzyć polaczenia. Czy na pewno podałeś wlaściwe numery? Może port " + portNo + " jest zajęty?");
-            cancelConnection();
-        }
+        setTryingToConnectTrue();
+        loggingInterface.tryToConnect(wantToBeHost, portNo, ip);
 
     }
 
-    public void cancelConnection() {
-        if (networkManager != null) {
-            networkManager.closeConnections();
-        }
-        networkManager = null;
+    public void clearAfterConnectionTry() {
         logText.setText("");
         setTryingToConnectFalse();
     }
 
-    public void startGame() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/gameScene.fxml"));
-        Parent root = loader.load();
-        Controller gameController = loader.getController();
-        game = new Game(wantToBeHost, networkManager, gameController);
-        gameController.setGame(game);
-        networkManager.setGame(game);
-        Stage stage = (Stage) errorText.getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setOnCloseRequest(e -> {
-            networkManager.closeConnections();
-            Platform.exit();
-        });
-    }
 
     private void setTryingToConnectFalse() {
         tryingToConnect = false;

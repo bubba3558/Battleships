@@ -3,6 +3,7 @@ package network;
 import gui.LoginController;
 import model.Game;
 import javafx.application.Platform;
+import model.LoggingInterface;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -19,13 +20,13 @@ public class NetworkManager {
     private MessageListener messageListener = null;
     private Socket clientSocket = null;
     private ServerSocket serverSocket = null;
-    private LoginController controller;
+    LoggingInterface loggingInterface;
 
-    public NetworkManager(boolean isHost, int port, String serverIP, LoginController controller) throws IOException {
+    public NetworkManager(boolean isHost, int port, String serverIP, LoggingInterface loggingInterface) throws IOException {
         this.isHost = isHost;
         this.serverIP = serverIP;
         this.port = port;
-        this.controller = controller;
+        this.loggingInterface = loggingInterface;
 
         if (isHost) {
             serverSocket = new ServerSocket(port, 1);
@@ -62,19 +63,7 @@ public class NetworkManager {
             }
             messageListener.start();
 
-            /**connected so change scene and allow to play!*/
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-
-                    try {
-                        controller.startGame();
-                    } catch (IOException e) {
-                        sendErrorMessage("oops cos poszło nie tak przy ładowaniu widoku gry");
-                        e.printStackTrace();
-                    }
-                }
-            });
+            loggingInterface.startGame();
 
         }
 
@@ -142,8 +131,6 @@ public class NetworkManager {
                 e.printStackTrace();
             } catch (IOException e) {
                 game.haveLostConnection();
-                System.err.println("Could not get input");
-                e.printStackTrace();
             } catch (Exception e) {
                 System.err.println("Incorrect message");
                 e.printStackTrace();
@@ -153,11 +140,6 @@ public class NetworkManager {
     }
 
     public void sendErrorMessage(String text) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                controller.getError(text);
-            }
-        });
+        loggingInterface.setError(text);
     }
 }
