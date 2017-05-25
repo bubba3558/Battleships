@@ -67,7 +67,7 @@ public class Controller implements Initializable {
     public final static String SHIPCOLOR = "#428908";
     public final static String SAFETYCOLOR = "#8898cc";
 
-    public final static int SHIPSNO = 2;
+    public final static int SHIPSNO = 8;
     private int shipsToPlace = SHIPSNO;
     private int startX = -1;
     private int startY = -1;
