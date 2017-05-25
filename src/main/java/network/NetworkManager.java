@@ -1,10 +1,7 @@
 package network;
 
-import gui.LoginController;
 import model.Game;
-import javafx.application.Platform;
 import model.LoggingInterface;
-
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.*;
@@ -69,28 +66,37 @@ public class NetworkManager {
 
     }
 
+    /**
+     * after getting connection logging interface is no more need
+     */
     public void setGame(Game game) {
         this.game = game;
+        loggingInterface = null;
     }
 
     public void closeConnections() {
         try {
-            if (serverSocket != null && !serverSocket.isClosed())
+            if (serverSocket != null && !serverSocket.isClosed()) {
                 serverSocket.close();
-            if (clientSocket != null && !clientSocket.isClosed())
+            }
+            if (clientSocket != null && !clientSocket.isClosed()) {
                 clientSocket.close();
-            if (messageOutput != null)
+            }
+            if (messageOutput != null) {
                 messageOutput.close();
-            if (messageListener != null)
+            }
+            if (messageListener != null) {
                 messageListener.MessageInput.close();
+            }
         } catch (IOException e) {
             System.err.println("Error when closing connection");
         }
     }
 
     public boolean sendMessage(Message message) {
-        if (!connected)
+        if (!connected) {
             return false;
+        }
         try {
             messageOutput.writeObject(message);
         } catch (IOException e) {

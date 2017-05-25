@@ -396,7 +396,7 @@
                                                 <Double fx:value="-60.0" />
                                             </points>
                                         </Polygon>
-                                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changeOrientation" prefHeight="33.0" prefWidth="68.0" text="Zmien" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                        <Button fx:id="orientationButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changeOrientation" prefHeight="33.0" prefWidth="68.0" text="Zmien" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                                         <Label prefHeight="21.0" prefWidth="92.0" text="Orientacja" GridPane.rowIndex="2">
                                             <font>
                                                 <Font size="14.0" />

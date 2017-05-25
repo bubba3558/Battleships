@@ -68,10 +68,12 @@ public class Game {
                 controller.setMiss(message.getX(), message.getY());
                 break;
             case SHIPHIT:
-                if (message.getFloating() == true)
+                if (message.getFloating() == true) {
                     controller.setShipHit(message.getX(), message.getY());
-                else
+                }
+                else {
                     controller.setShipSunkHit(message.getX(), message.getY(), message.getShipLength(), message.getOrientation());
+                }
                 break;
             case READYTOPLAY:
                 opponentIsReady = true;
@@ -79,7 +81,7 @@ public class Game {
                 checkIfGameIsReady();
                 break;
             case GAME_END:
-                controller.printMessage("wygrałeś");
+                controller.gameEnd();
                 gameEnd = true;
                 break;
             case RESTART:
@@ -95,10 +97,12 @@ public class Game {
     private void checkIfGameIsReady() {
         if (youAreReady && opponentIsReady) {
             gamePrepared = true;
-            if (isYourTurn())
+            if (isYourTurn()) {
                 controller.printMessage("Twoja kolej");
-            else
+            }
+            else {
                 controller.printMessage("czekaj na ruch przeciwnika");
+            }
         }
     }
 
@@ -121,8 +125,9 @@ public class Game {
     }
 
     public boolean isTaken(int x, int y) {
-        if (!board.isFieldInsideBoard(x, y))
+        if (!board.isFieldInsideBoard(x, y)) {
             return true;
+        }
         return (board.getFieldType(x, y) == FieldType.WITHSHIP || board.getFieldType(x, y) == FieldType.NEARSHIP);
     }
 

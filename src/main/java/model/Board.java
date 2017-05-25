@@ -56,12 +56,15 @@ public class Board {
 
     private boolean isPlaceableHorizontal(int startX, int startY, int shipSize) throws OutOfBoardException, CollisionException {
         for (int x = startX; x < startX + shipSize; ++x) {
-            if (!isFieldInsideBoard(x, startY))
+            if (!isFieldInsideBoard(x, startY)) {
                 throw new OutOfBoardException("can not set ship outside the board");
-            if (board[x][startY].getFieldType() == FieldType.WITHSHIP)
+            }
+            if (board[x][startY].getFieldType() == FieldType.WITHSHIP) {
                 throw new CollisionException("can not set two ships in the same place");
-            if (board[x][startY].getFieldType() == FieldType.NEARSHIP)
+            }
+            if (board[x][startY].getFieldType() == FieldType.NEARSHIP) {
                 throw new CollisionException("can not set two ships near each other");
+            }
         }
         return true;
     }
@@ -86,19 +89,23 @@ public class Board {
 
     private boolean isPlaceableVertical(int startX, int startY, int shipSize) throws OutOfBoardException, CollisionException {
         for (int y = startY; y < startY + shipSize; ++y) {
-            if (!isFieldInsideBoard(startX, y))
+            if (!isFieldInsideBoard(startX, y)) {
                 throw new OutOfBoardException("can not set ship outside the board");
-            if (board[startX][y].getFieldType() == FieldType.WITHSHIP)
+            }
+            if (board[startX][y].getFieldType() == FieldType.WITHSHIP) {
                 throw new CollisionException("can not set two ships in the same place");
-            if (board[startX][y].getFieldType() == FieldType.NEARSHIP)
+            }
+            if (board[startX][y].getFieldType() == FieldType.NEARSHIP) {
                 throw new CollisionException("can not set two ships near each other");
+            }
         }
         return true;
     }
 
     public boolean takeHit(int x, int y) throws OutOfBoardException {
-        if (!isFieldInsideBoard(x, y))
+        if (!isFieldInsideBoard(x, y)) {
             throw new OutOfBoardException("can not choose field outside the board");
+        }
         if (board[x][y].getFieldType() == FieldType.WITHSHIP) {
             board[x][y].takeHit();
             return true;

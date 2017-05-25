@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
@@ -53,6 +54,10 @@ public class Controller implements Initializable {
     private Label orientationText;
     @FXML
     private Label errorField;
+    @FXML
+    private Button restartButton;
+    @FXML
+    private Button orientationButton;
 
     private Cell[][] opponentBoard;
     private Cell[][] myBoard;
@@ -62,7 +67,7 @@ public class Controller implements Initializable {
     public final static String SHIPCOLOR = "#428908";
     public final static String SAFETYCOLOR = "#8898cc";
 
-    public final static int SHIPSNO = 8;
+    public final static int SHIPSNO = 2;
     private int shipsToPlace = SHIPSNO;
     private int startX = -1;
     private int startY = -1;
@@ -395,6 +400,10 @@ public class Controller implements Initializable {
                 board[x][y].reset();
             }
         }
+    }
+    public void  gameEnd(){
+        //resetButton.setDisable(false);
+        printMessage("wygrałeś");
     }
 
     public void setTrianglesVisible() {

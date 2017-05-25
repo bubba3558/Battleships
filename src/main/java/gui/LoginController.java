@@ -1,18 +1,9 @@
 package gui;
 
-import javafx.fxml.Initializable;
-import model.Game;
 import model.LoggingInterface;
-import network.NetworkManager;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-
 import java.io.IOException;
 
 
@@ -39,8 +30,9 @@ public class LoginController {
 
 
     public void changeHost() {
-        if (tryingToConnect)
+        if (tryingToConnect) {
             return;
+        }
         if (wantToBeHost) {
             wantToBeHost = false;
             textWho.setText("Chce dolaczyc do gry");
@@ -57,14 +49,16 @@ public class LoginController {
     }
 
     public void getIp() {
-        if (tryingToConnect)
+        if (tryingToConnect) {
             return;
+        }
         ip = ipField.getText();
     }
 
     public void getPortNo() {
-        if (tryingToConnect)
+        if (tryingToConnect) {
             return;
+        }
         portNo = Integer.parseInt(portNoField.getText());
     }
 
