@@ -18,6 +18,7 @@ public class Main extends Application {
              controller = (LoginController) loader.getController();
              Scene scene = new Scene(root);
              stage.setScene(scene);
+             stage.setTitle("Hello World!");
              stage.show();
              stage.setOnCloseRequest(e-> {
                 controller.cancelConnection();
