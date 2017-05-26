@@ -47,7 +47,7 @@ public class Game {
             }
             if (score == 0) {
                 netManager.sendMessage(Message.getYouWonMessage(x, y));
-                controller.printMessage("przegrałes");
+                controller.setLost();
                 gameEnd = true;
             }
         } else {
@@ -81,7 +81,7 @@ public class Game {
                 checkIfGameIsReady();
                 break;
             case GAME_END:
-                controller.gameEnd();
+                controller.setWin();
                 gameEnd = true;
                 break;
             case RESTART:

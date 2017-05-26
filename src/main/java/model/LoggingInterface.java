@@ -19,9 +19,6 @@ public class LoggingInterface {
     Game game;
     boolean isHost;
 
-//    public LoggingInterface(LoginController loginController) {
-//        this.loginController = loginController;
-//    }
 
     public LoggingInterface(Stage stage) {
         this.stage = stage;

@@ -16,8 +16,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Shape;
 import model.Game;
 import model.Orientation;
+import model.Point;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
@@ -31,25 +33,13 @@ public class Controller implements Initializable {
     @FXML
     private GridPane opponentGrid;
     @FXML
+    private GridPane shipsBoard;
+    @FXML
+    private GridPane orientationPane;
+    @FXML
     private Shape verticTriangle;
     @FXML
     private Shape horizTriangle;
-    @FXML
-    private Shape triangle5;
-    @FXML
-    private Shape triangle4a;
-    @FXML
-    private Shape triangle4b;
-    @FXML
-    private Shape triangle3a;
-    @FXML
-    private Shape triangle3b;
-    @FXML
-    private Shape triangle2a;
-    @FXML
-    private Shape triangle2b;
-    @FXML
-    private Shape triangle2c;
     @FXML
     private Label orientationText;
     @FXML
@@ -61,23 +51,36 @@ public class Controller implements Initializable {
 
     private Cell[][] opponentBoard;
     private Cell[][] myBoard;
+    private ArrayList<ShipPane> shipPaneList = new ArrayList<>();
     public final static String HITFLOATINGCOLOR = "#ff0303";
     public final static String HITSUNKCOLOR = "#930505";
     public final static String MISSCOLOR = "#58648c";
     public final static String SHIPCOLOR = "#428908";
     public final static String SAFETYCOLOR = "#8898cc";
 
-    public final static int SHIPSNO = 8;
-    private int shipsToPlace = SHIPSNO;
+    public final static int[] shipsAmountOfType = new int[]{0, 3, 2, 2, 1};
+    //    public final static int SHIPL5 = 1;
+//    public final static int SHIPL4 = 2;
+//    public final static int SHIPL3 = 2;
+//    public final static int SHIPL2 = 3;
+    public int shipsCount;
+    //    private int shipsToPlace = SHIPSNO;
+    private int shipsToPlace = 0;
     private int startX = -1;
     private int startY = -1;
+    private Point lastShipIndex;
 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        for (int count : shipsAmountOfType) {
+            shipsToPlace += count;
+        }
+        shipsCount = 2;shipsToPlace=2;//TODO delete
         initMyBoard();
         initOpponentBoard();
         Platform.setImplicitExit(false);
+        initShipsBoard();
     }
 
     public void changeOrientation(ActionEvent event) {
@@ -255,95 +258,6 @@ public class Controller implements Initializable {
         }
     }
 
-    public void placeShipL5() {
-        if (placeShip(5)) {
-            triangle5.setDisable(true);
-            triangle5.setOpacity(0);
-        }
-    }
-
-    public void placeShipL4a() {
-        if (placeShip(4)) {
-            triangle4a.setDisable(true);
-            triangle4a.setOpacity(0);
-        }
-    }
-
-    public void placeShipL4b() {
-        if (placeShip(4)) {
-            triangle4b.setDisable(true);
-            triangle4b.setOpacity(0);
-        }
-    }
-
-    public void placeShipL3a() {
-        if (placeShip(3)) {
-            triangle3a.setDisable(true);
-            triangle3a.setOpacity(0);
-        }
-    }
-
-    public void placeShipL3b() {
-        if (placeShip(3)) {
-            triangle3b.setDisable(true);
-            triangle3b.setOpacity(0);
-        }
-    }
-
-    public void placeShipL2a() {
-        if (placeShip(2)) {
-            triangle2a.setDisable(true);
-            triangle2a.setOpacity(0);
-        }
-    }
-
-    public void placeShipL2b() {
-        if (placeShip(2)) {
-            triangle2b.setDisable(true);
-            triangle2b.setOpacity(0);
-        }
-    }
-
-    public void placeShipL2c() {
-        if (placeShip(2)) {
-            triangle2c.setDisable(true);
-            triangle2c.setOpacity(0);
-        }
-    }
-
-    /**
-     * return true if successful
-     */
-    public boolean placeShip(int length) {
-        if (startX == -1) {
-            printMessage("Wybierz pole dla rufy");
-            return false;
-        }
-        if (shipsToPlace == 0) {
-            printMessage("Ustawiłeś już statki");
-            return false;
-        }
-        int x = startX, y = startY;
-        Orientation tempOrientation = orientation;
-        try {
-            game.addShipToBoard(tempOrientation, length, x, y);
-        } catch (OutOfBoardException e) {
-            printMessage("Nie można postawić statku w tym miejscu, wychodzi poza pole");
-            return false;
-        } catch (CollisionException e) {
-            printMessage("Nie można postawić statku w tym miejscu, kolizja z innym statkiem");
-            return false;
-        }
-        colorShipFieldsAndSafetyZone(tempOrientation, length, x, y);
-        --shipsToPlace;
-        if (shipsToPlace == 0) {
-            printMessage("Ustawiłeś statki. Czekaj na przeciwnika");
-            game.sendReadyMessage();
-        }
-
-        return true;
-    }
-
     private void colorShipFieldsAndSafetyZone(Orientation orientation, int length, int x, int y) {
         if (orientation == Orientation.HORIZONTAL) {
             setMySafetyColumn(x - 1, y);
@@ -380,18 +294,20 @@ public class Controller implements Initializable {
     }
 
     public void restartGame() {
-        if (!game.isGameEnd()) {
-            printMessage("Zakończ gre, aby ją zrestartować");
-            return;
-        }
         game.setRestart();
     }
 
     public void restartController() {
-        shipsToPlace = SHIPSNO;
+        restartButton.setOpacity(0);
+        restartButton.setDisable(true);
+        orientationButton.setDisable(false);
+       orientationPane.setOpacity(1);
+        shipsToPlace = shipsCount;
+        for(ShipPane pane: shipPaneList ){
+            pane.reset();
+        }
         resetBoard(myBoard);
         resetBoard(opponentBoard);
-        setTrianglesVisible();
     }
 
     public void resetBoard(Cell[][] board) {
@@ -401,28 +317,93 @@ public class Controller implements Initializable {
             }
         }
     }
-    public void  gameEnd(){
-        //resetButton.setDisable(false);
+    public void setWin(){
         printMessage("wygrałeś");
+        gameEnd();
+
+    }
+    public void setLost(){
+        printMessage("przegrałes");
+        gameEnd();
+    }
+    private void gameEnd() {
+        restartButton.setOpacity(1);
+        restartButton.setDisable(false);
     }
 
-    public void setTrianglesVisible() {
+    public void initShipsBoard() {
 
-        triangle5.setDisable(false);
-        triangle5.setOpacity(1);
-        triangle4a.setDisable(false);
-        triangle4a.setOpacity(1);
-        triangle4b.setDisable(false);
-        triangle4b.setOpacity(1);
-        triangle3a.setDisable(false);
-        triangle3a.setOpacity(1);
-        triangle3b.setDisable(false);
-        triangle3b.setOpacity(1);
-        triangle2a.setDisable(false);
-        triangle2a.setOpacity(1);
-        triangle2b.setDisable(false);
-        triangle2b.setOpacity(1);
-        triangle2c.setDisable(false);
-        triangle2c.setOpacity(1);
+        lastShipIndex = new Point(0, 0);
+        for (int i=0; i<shipsAmountOfType.length; ++i) {
+            for (int j = 0; j < shipsAmountOfType[i]; ++j) {
+                ShipPane pane = new ShipPane(i + 1);/**+1 couse tab intex starts from 0 and length of Ship = 0 is pointless so is not include in shipsAmountOfType*/
+                shipPaneSetOnAction(pane);
+                shipsBoard.add(pane, lastShipIndex.x, lastShipIndex.y);
+                incrementLastShipIndex();
+                shipPaneList.add(pane);
+            }
+        }
+    }
+
+    /**
+     * grid has two rows so x can be 0 or 1
+     */
+
+    public void incrementLastShipIndex() {
+        if (lastShipIndex.x == 0) {
+            ++lastShipIndex.x;
+            return;
+        } else {
+            lastShipIndex.x = 0;
+            ++lastShipIndex.y;
+        }
+    }
+
+    /**
+     * return true if successful
+     */
+    public boolean placeShip(int length) {
+        if (startX == -1) {
+            printMessage("Wybierz pole dla rufy");
+            return false;
+        }
+        if (shipsToPlace == 0) {
+            printMessage("Ustawiłeś już statki");
+            return false;
+        }
+        int x = startX, y = startY;
+        Orientation tempOrientation = orientation;
+        try {
+            game.addShipToBoard(tempOrientation, length, x, y);
+        } catch (OutOfBoardException e) {
+            printMessage("Nie można postawić statku w tym miejscu, wychodzi poza pole");
+            return false;
+        } catch (CollisionException e) {
+            printMessage("Nie można postawić statku w tym miejscu, kolizja z innym statkiem");
+            return false;
+        }
+        colorShipFieldsAndSafetyZone(tempOrientation, length, x, y);
+        --shipsToPlace;
+        if (shipsToPlace == 0) {
+            printMessage("Ustawiłeś statki. Czekaj na przeciwnika");
+            game.sendReadyMessage();
+            orientationButton.setDisable(true);
+            orientationPane.setOpacity(0);
+        }
+
+        return true;
+    }
+
+    void shipPaneSetOnAction(ShipPane pane) {
+        pane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+
+            public void handle(MouseEvent t) {
+                if (placeShip(pane.getLength())) {
+                    pane.setPlaced();
+                }
+            }
+        });
     }
 }
