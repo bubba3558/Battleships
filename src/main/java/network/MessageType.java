@@ -7,6 +7,5 @@ public enum MessageType {
     MISS,
     SHIPHIT,
     GAME_END,
-    ERROR,
     RESTART,
 }

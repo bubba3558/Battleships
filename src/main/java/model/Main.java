@@ -10,14 +10,21 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
-
-    LoggingInterface loggingInterface;
-
+    private LoginController controller;
     @Override
     public void start(Stage stage) throws Exception {
-
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
+        Parent root = loader.load();
+        controller = (LoginController) loader.getController();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
         stage.setTitle("Statki");
-        loggingInterface = new LoggingInterface(stage);
+        stage.show();
+        stage.setOnCloseRequest(e-> {
+            controller.cancelConnection();
+            Platform.exit();
+        });
+
     }
 
     public static void main(String[] args) {

@@ -16,9 +16,11 @@ public class Board {
         this.width = width;
         this.height = height;
         board = new Field[width + 2][height + 2];
-        for (int i = 0; i <= width + 1; ++i)
-            for (int j = 0; j <= height + 1; j++)
+        for (int i = 0; i <= width + 1; ++i) {
+            for (int j = 0; j <= height + 1; j++) {
                 board[i][j] = new Field();
+            }
+        }
     }
 
     public int getWidth() {
@@ -30,10 +32,11 @@ public class Board {
     }
 
     public boolean placeShip(int startX, int startY, Ship ship) throws OutOfBoardException, CollisionException {
-        if (ship.getOrientation() == Orientation.HORIZONTAL)
+        if (ship.getOrientation() == Orientation.HORIZONTAL) {
             return placeHorizontal(startX, startY, ship);
-        else
+        } else {
             return placeVertical(startX, startY, ship);
+        }
     }
 
     private boolean placeHorizontal(int startX, int startY, Ship ship) throws OutOfBoardException, CollisionException {
@@ -56,15 +59,7 @@ public class Board {
 
     private boolean isPlaceableHorizontal(int startX, int startY, int shipSize) throws OutOfBoardException, CollisionException {
         for (int x = startX; x < startX + shipSize; ++x) {
-            if (!isFieldInsideBoard(x, startY)) {
-                throw new OutOfBoardException("can not set ship outside the board");
-            }
-            if (board[x][startY].getFieldType() == FieldType.WITHSHIP) {
-                throw new CollisionException("can not set two ships in the same place");
-            }
-            if (board[x][startY].getFieldType() == FieldType.NEARSHIP) {
-                throw new CollisionException("can not set two ships near each other");
-            }
+            checkIfShipCanBePlacedInField(x, startY);
         }
         return true;
     }
@@ -89,17 +84,24 @@ public class Board {
 
     private boolean isPlaceableVertical(int startX, int startY, int shipSize) throws OutOfBoardException, CollisionException {
         for (int y = startY; y < startY + shipSize; ++y) {
-            if (!isFieldInsideBoard(startX, y)) {
-                throw new OutOfBoardException("can not set ship outside the board");
-            }
-            if (board[startX][y].getFieldType() == FieldType.WITHSHIP) {
-                throw new CollisionException("can not set two ships in the same place");
-            }
-            if (board[startX][y].getFieldType() == FieldType.NEARSHIP) {
-                throw new CollisionException("can not set two ships near each other");
-            }
+            checkIfShipCanBePlacedInField(startX, y);
         }
         return true;
+    }
+
+    /**
+     * throws exception if not
+     */
+    private void checkIfShipCanBePlacedInField(int x, int y) throws OutOfBoardException, CollisionException {
+        if (!isFieldInsideBoard(x, y)) {
+            throw new OutOfBoardException("can not set ship outside the board");
+        }
+        if (board[x][y].getFieldType() == FieldType.WITHSHIP) {
+            throw new CollisionException("can not set two ships in the same place");
+        }
+        if (board[x][y].getFieldType() == FieldType.NEARSHIP) {
+            throw new CollisionException("can not set two ships near each other");
+        }
     }
 
     public boolean takeHit(int x, int y) throws OutOfBoardException {

@@ -2,7 +2,7 @@ package model;
 
 import exception.CollisionException;
 import exception.OutOfBoardException;
-import gui.Controller;
+import gui.GameControllerInterface;
 import javafx.application.Platform;
 import network.Message;
 import network.NetworkManager;
@@ -18,14 +18,14 @@ public class Game {
     private boolean opponentIsReady = false;
     private boolean gamePrepared = false;
     private boolean gameEnd = false;
-    private Controller controller;
+    private GameControllerInterface gameInterface;
 
-    public Game(Boolean isHost, NetworkManager networkManager, Controller controller) {
+    public Game(Boolean isHost, NetworkManager networkManager, GameControllerInterface gameInterface) {
         this.netManager = networkManager;
         board = new Board(BOARDHIGHT, BOARDWIDTH);
         netManager.setGame(this);
         isYourTurn = isHost;
-        this.controller = controller;
+        this.gameInterface = gameInterface;
     }
 
     public boolean isYourTurn() {
@@ -37,23 +37,23 @@ public class Game {
             --score;
             if (board.isShipFloating(x, y)) {
                 netManager.sendMessage(Message.getHitNotSunkMessage(x, y));
-                controller.setYourShipHit(x, y);
+                gameInterface.setYourShipHit(x, y);
             } else {
                 Point point = board.getBow(x, y);
                 x = point.getX();
                 y = point.getY();
                 netManager.sendMessage(Message.getHitAndSunkMessage(x, y, board.getShipLength(x, y), board.getOrientation(x, y)));
-                controller.setYourShipSunk(x, y, board.getShipLength(x, y), board.getOrientation(x, y));
+                gameInterface.setYourShipSunk(x, y, board.getShipLength(x, y), board.getOrientation(x, y));
             }
             if (score == 0) {
                 netManager.sendMessage(Message.getYouWonMessage(x, y));
-                controller.setLost();
+                gameInterface.setLost();
                 gameEnd = true;
             }
         } else {
             netManager.sendMessage(Message.getMissMessage(x, y));
             isYourTurn = true;
-            controller.setOpponentMiss(x, y);
+            gameInterface.setOpponentMiss(x, y);
         }
     }
 
@@ -65,23 +65,22 @@ public class Game {
                 break;
             case MISS:
                 isYourTurn = false;
-                controller.setMiss(message.getX(), message.getY());
+                gameInterface.setMiss(message.getX(), message.getY());
                 break;
             case SHIPHIT:
                 if (message.getFloating() == true) {
-                    controller.setShipHit(message.getX(), message.getY());
-                }
-                else {
-                    controller.setShipSunkHit(message.getX(), message.getY(), message.getShipLength(), message.getOrientation());
+                    gameInterface.setShipHit(message.getX(), message.getY());
+                } else {
+                    gameInterface.setShipSunkHit(message.getX(), message.getY(), message.getShipLength(), message.getOrientation());
                 }
                 break;
             case READYTOPLAY:
                 opponentIsReady = true;
-                controller.printMessage("przeciwnik ustawil statki");
+                gameInterface.printMessage("przeciwnik ustawil statki");
                 checkIfGameIsReady();
                 break;
             case GAME_END:
-                controller.setWin();
+                gameInterface.setWin();
                 gameEnd = true;
                 break;
             case RESTART:
@@ -98,10 +97,9 @@ public class Game {
         if (youAreReady && opponentIsReady) {
             gamePrepared = true;
             if (isYourTurn()) {
-                controller.printMessage("Twoja kolej");
-            }
-            else {
-                controller.printMessage("czekaj na ruch przeciwnika");
+                gameInterface.printMessage("Twoja kolej");
+            } else {
+                gameInterface.printMessage("czekaj na ruch przeciwnika");
             }
         }
     }
@@ -135,7 +133,7 @@ public class Game {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                controller.printErrorMessage("Utraciłeś połączenie, uruchom gre jeszcze raz");
+                gameInterface.setErrorMessage("Utraciłeś połączenie, uruchom gre jeszcze raz");
             }
         });
         gamePrepared = false;
@@ -157,6 +155,6 @@ public class Game {
         opponentIsReady = false;
         gamePrepared = false;
         gameEnd = false;
-        controller.restartController();
+        gameInterface.restartView();
     }
 }

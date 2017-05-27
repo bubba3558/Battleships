@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 
 <AnchorPane prefHeight="848.0" prefWidth="1153.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller">
     <children>
@@ -234,7 +226,7 @@
                                     </rowConstraints>
                                     <children>
                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="40.0" stroke="BLACK" strokeType="INSIDE" translateX="10.0" width="40.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                        <Polygon fx:id="horizTriangle" fill="DODGERBLUE" rotate="-90.0" scaleX="0.4" scaleY="0.4" stroke="BLACK" strokeType="INSIDE" translateX="37.0" GridPane.rowIndex="1">
+                                        <Polygon fx:id="horizontalTriangle" fill="DODGERBLUE" rotate="-90.0" scaleX="0.4" scaleY="0.4" stroke="BLACK" strokeType="INSIDE" translateX="37.0" GridPane.rowIndex="1">
                                             <points>
                                                 <Double fx:value="-50.0" />
                                                 <Double fx:value="40.0" />
@@ -244,7 +236,7 @@
                                                 <Double fx:value="-60.0" />
                                             </points>
                                         </Polygon>
-                                        <Polygon fx:id="verticTriangle" fill="DODGERBLUE" opacity="0.0" scaleX="0.4" scaleY="0.4" stroke="BLACK" strokeType="INSIDE" translateX="-20.0" translateY="15.0" GridPane.columnIndex="1">
+                                        <Polygon fx:id="verticalTriangle" fill="DODGERBLUE" opacity="0.0" scaleX="0.4" scaleY="0.4" stroke="BLACK" strokeType="INSIDE" translateX="-20.0" translateY="15.0" GridPane.columnIndex="1">
                                             <points>
                                                 <Double fx:value="-50.0" />
                                                 <Double fx:value="40.0" />

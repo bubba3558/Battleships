@@ -1,10 +1,12 @@
 package network;
 
+import gui.LoggingInterface;
 import model.Game;
-import model.LoggingInterface;
+import javafx.application.Platform;
+
 import java.io.*;
 import java.net.ServerSocket;
-import java.net.*;
+import java.net.Socket;
 
 
 public class NetworkManager {
@@ -17,7 +19,7 @@ public class NetworkManager {
     private MessageListener messageListener = null;
     private Socket clientSocket = null;
     private ServerSocket serverSocket = null;
-    LoggingInterface loggingInterface;
+    private LoggingInterface loggingInterface;
 
     public NetworkManager(boolean isHost, int port, String serverIP, LoggingInterface loggingInterface) throws IOException {
         this.isHost = isHost;
@@ -47,7 +49,7 @@ public class NetworkManager {
                     connected = true;
                 } catch (IOException e) {
                     sendErrorMessage("Nikt do Ciebie nie dolaczyl w przewidzianym czasie");
-                    closeConnections();
+                    return;
                 }
             }
             try {
@@ -55,52 +57,44 @@ public class NetworkManager {
                 messageListener = new MessageListener(clientSocket.getInputStream());
 
             } catch (IOException e) {
-                sendErrorMessage("Nie udało sie utorzyć streamow");
+                sendErrorMessage("Nie udało sie utorzyc streamow");
                 closeConnections();
+                e.printStackTrace();
+                return;
             }
             messageListener.start();
-
-            loggingInterface.startGame();
+            startGame();
 
         }
 
     }
 
-    /**
-     * after getting connection logging interface is no more need
-     */
-    public void setGame(Game game) {
+    public void setGame(Game game) {//message handler
         this.game = game;
-        loggingInterface = null;
     }
 
     public void closeConnections() {
         try {
-            if (serverSocket != null && !serverSocket.isClosed()) {
+            if (serverSocket != null && !serverSocket.isClosed())
                 serverSocket.close();
-            }
-            if (clientSocket != null && !clientSocket.isClosed()) {
+            if (clientSocket != null && !clientSocket.isClosed())
                 clientSocket.close();
-            }
-            if (messageOutput != null) {
+            if (messageOutput != null)
                 messageOutput.close();
-            }
-            if (messageListener != null) {
+            if (messageListener != null)
                 messageListener.MessageInput.close();
-            }
         } catch (IOException e) {
             System.err.println("Error when closing connection");
+            e.printStackTrace();
         }
     }
 
     public boolean sendMessage(Message message) {
-        if (!connected) {
+        if (!connected)
             return false;
-        }
         try {
             messageOutput.writeObject(message);
         } catch (IOException e) {
-            System.err.println("Could not get output to sent message");
             e.printStackTrace();
             return false;
         }
@@ -120,10 +114,7 @@ public class NetworkManager {
             }
         }
 
-        /**
-         * receive messages
-         */
-        public void run() {
+        public void run() {//receive messages
             Message message;
 
             try {
@@ -137,6 +128,8 @@ public class NetworkManager {
                 e.printStackTrace();
             } catch (IOException e) {
                 game.haveLostConnection();
+                System.err.println("Could not get input");
+                e.printStackTrace();
             } catch (Exception e) {
                 System.err.println("Incorrect message");
                 e.printStackTrace();
@@ -145,7 +138,21 @@ public class NetworkManager {
         }
     }
 
-    public void sendErrorMessage(String text) {
-        loggingInterface.setError(text);
+    private void sendErrorMessage(String text) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                loggingInterface.setError(text);
+            }
+        });
+    }
+
+    private void startGame() {
+        Platform.runLater(new Runnable() {//connected so change scene and allow to play
+            @Override
+            public void run() {
+                loggingInterface.startGame();
+            }
+        });
     }
 }
