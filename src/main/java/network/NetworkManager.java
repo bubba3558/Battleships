@@ -48,7 +48,7 @@ public class NetworkManager {
                     clientSocket = serverSocket.accept();
                     connected = true;
                 } catch (IOException e) {
-                    sendErrorMessage("Nikt do Ciebie nie dolaczyl w przewidzianym czasie");
+                    setError("Nikt do Ciebie nie dolaczyl w przewidzianym czasie");
                     return;
                 }
             }
@@ -57,7 +57,7 @@ public class NetworkManager {
                 messageListener = new MessageListener(clientSocket.getInputStream());
 
             } catch (IOException e) {
-                sendErrorMessage("Nie udało sie utorzyc streamow");
+                setError("Nie udało sie utorzyc streamow");
                 closeConnections();
                 e.printStackTrace();
                 return;
@@ -108,13 +108,16 @@ public class NetworkManager {
             try {
                 MessageInput = new ObjectInputStream(stream);
             } catch (IOException e) {
-                sendErrorMessage("Nie udalo sie utowrzyc streamu dla wiadomosci");
+                setError("Nie udalo sie utowrzyc streamu dla wiadomosci");
                 e.printStackTrace();
                 closeConnections();
             }
         }
 
-        public void run() {//receive messages
+        /**
+         * receive messages
+         */
+        public void run() {
             Message message;
 
             try {
@@ -124,12 +127,10 @@ public class NetworkManager {
                     }
                 }
             } catch (ClassNotFoundException e) {
-                System.err.println("Can not recognise recived message");
+                System.err.println("Can not recognise received message");
                 e.printStackTrace();
             } catch (IOException e) {
                 game.haveLostConnection();
-                System.err.println("Could not get input");
-                e.printStackTrace();
             } catch (Exception e) {
                 System.err.println("Incorrect message");
                 e.printStackTrace();
@@ -138,7 +139,7 @@ public class NetworkManager {
         }
     }
 
-    private void sendErrorMessage(String text) {
+    private void setError(String text) {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -147,8 +148,11 @@ public class NetworkManager {
         });
     }
 
+    /**
+     * connected so change scene and allow to play
+     */
     private void startGame() {
-        Platform.runLater(new Runnable() {//connected so change scene and allow to play
+        Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 loggingInterface.startGame();
