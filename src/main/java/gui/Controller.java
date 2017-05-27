@@ -58,21 +58,22 @@ public class Controller implements Initializable, GameControllerInterface {
     public final static String SHIPCOLOR = "#428908";
     public final static String SAFETYCOLOR = "#8898cc";
 
-    public final static int[] shipsAmountOfType = new int[]{0, 3, 2, 2, 1};
+    public final static int[] shipsAmountOfType = new int[]{0, 3, 2, 2, 1};  //here 0 ships with length 1, 3 ships length 2, 2 ships length 3 and so on.
     public int shipsCount;
     private int shipsToPlace = 0;
     private int startX = -1;
     private int startY = -1;
     private Point lastShipIndex;
 
-
+    /**
+     * shipsAmountOfType contains how many ships of length 1,2,3,4.. should be placed
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         for (int count : shipsAmountOfType) {
             shipsToPlace += count;
         }
-        shipsCount = 2;
-        shipsToPlace = 2;//TODO delete
+        shipsCount = shipsToPlace;
         initMyBoard();
         initOpponentBoard();
         Platform.setImplicitExit(false);
