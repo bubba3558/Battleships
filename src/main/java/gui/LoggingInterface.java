@@ -1,11 +1,13 @@
 package gui;
 
 
+import network.ErrorType;
+
 public interface LoggingInterface {
 
     void startGame();
 
-    void setError(String text);
+    void setError(ErrorType errorType);
 }
 
 

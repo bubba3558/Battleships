@@ -3,9 +3,12 @@ package model;
 import exception.CollisionException;
 import exception.OutOfBoardException;
 import gui.GameControllerInterface;
-import javafx.application.Platform;
 import network.Message;
 import network.NetworkManager;
+
+import static model.GameMessageType.opponentPlacedHisShips;
+import static model.GameMessageType.waitForOpponentMove;
+import static model.GameMessageType.yourTurn;
 
 public class Game {
     public static final int BOARDHIGHT = 15;
@@ -76,7 +79,7 @@ public class Game {
                 break;
             case READYTOPLAY:
                 opponentIsReady = true;
-                gameInterface.printMessage("przeciwnik ustawil statki");
+                gameInterface.setMessage(opponentPlacedHisShips);
                 checkIfGameIsReady();
                 break;
             case GAME_END:
@@ -97,9 +100,9 @@ public class Game {
         if (youAreReady && opponentIsReady) {
             gamePrepared = true;
             if (isYourTurn()) {
-                gameInterface.printMessage("Twoja kolej");
+                gameInterface.setMessage(yourTurn);
             } else {
-                gameInterface.printMessage("czekaj na ruch przeciwnika");
+                gameInterface.setMessage(waitForOpponentMove);
             }
         }
     }
@@ -130,13 +133,8 @@ public class Game {
     }
 
     public void haveLostConnection() {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                gameInterface.setErrorMessage("Utraciłeś połączenie, uruchom gre jeszcze raz");
-            }
-        });
         gamePrepared = false;
+        gameInterface.setLostConnection();
     }
 
     public boolean isGameEnd() {

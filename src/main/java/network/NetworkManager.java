@@ -2,7 +2,6 @@ package network;
 
 import gui.LoggingInterface;
 import model.Game;
-import javafx.application.Platform;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -48,7 +47,7 @@ public class NetworkManager {
                     clientSocket = serverSocket.accept();
                     connected = true;
                 } catch (IOException e) {
-                    setError("Nikt do Ciebie nie dolaczyl w przewidzianym czasie");
+                    loggingInterface.setError(ErrorType.connectionTimeOut);
                     return;
                 }
             }
@@ -57,13 +56,13 @@ public class NetworkManager {
                 messageListener = new MessageListener(clientSocket.getInputStream());
 
             } catch (IOException e) {
-                setError("Nie udało sie utorzyc streamow");
+                loggingInterface.setError(ErrorType.couldNotCreateStream);
                 closeConnections();
                 e.printStackTrace();
                 return;
             }
             messageListener.start();
-            startGame();
+            loggingInterface.startGame();
 
         }
 
@@ -108,7 +107,7 @@ public class NetworkManager {
             try {
                 MessageInput = new ObjectInputStream(stream);
             } catch (IOException e) {
-                setError("Nie udalo sie utowrzyc streamu dla wiadomosci");
+                loggingInterface.setError(ErrorType.getCouldNotCreateInputStream);
                 e.printStackTrace();
                 closeConnections();
             }
@@ -132,31 +131,10 @@ public class NetworkManager {
             } catch (IOException e) {
                 game.haveLostConnection();
             } catch (Exception e) {
-                System.err.println("Incorrect message");
                 e.printStackTrace();
             }
 
         }
     }
 
-    private void setError(String text) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                loggingInterface.setError(text);
-            }
-        });
-    }
-
-    /**
-     * connected so change scene and allow to play
-     */
-    private void startGame() {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                loggingInterface.startGame();
-            }
-        });
-    }
 }

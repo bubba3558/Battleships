@@ -1,5 +1,6 @@
 package gui;
 
+import model.GameMessageType;
 import model.Orientation;
 
 public interface GameControllerInterface {
@@ -10,9 +11,7 @@ public interface GameControllerInterface {
 
     void restartView();
 
-    void printMessage(String text);
-
-    void setErrorMessage(String text);
+    void setMessage(GameMessageType messageType);
 
     void setMiss(int x, int y);
 
@@ -25,5 +24,7 @@ public interface GameControllerInterface {
     void setShipSunkHit(int x, int y, int length, Orientation orientation);
 
     void setYourShipSunk(int x, int y, int length, Orientation orientation);
+
+    void setLostConnection();
 
 }

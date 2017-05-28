@@ -15,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Shape;
 import model.Game;
+import model.GameMessageType;
 import model.Orientation;
 import model.Point;
 
@@ -168,9 +169,23 @@ public class Controller implements Initializable, GameControllerInterface {
             }
         printMessage("Twój statek zatonął.");
     }
+    public void setMessage(GameMessageType messageType){
+        String text = "błąd";
+        switch (messageType){
+            case opponentPlacedHisShips:
+                text = "przeciwnik ustawil swoje statki";
+                break;
+            case yourTurn:
+                text = "Twoja kolej, wybierz pole przeciwnika, które chcesz zaatakować";
+                break;
+            case waitForOpponentMove:
+                text = "Poczekaj na ruch przeciwnika";
+                break;
+        }
+        printMessage(text);
+    }
 
-
-    public void printMessage(String text) {
+    private void printMessage(String text) {
         textField.setText(text);
     }
 
@@ -392,7 +407,7 @@ public class Controller implements Initializable, GameControllerInterface {
         return true;
     }
 
-    void shipPaneSetOnAction(ShipPane pane) {
+    private void shipPaneSetOnAction(ShipPane pane) {
         pane.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
             @Override
@@ -401,6 +416,15 @@ public class Controller implements Initializable, GameControllerInterface {
                 if (placeShip(pane.getLength())) {
                     pane.setPlaced();
                 }
+            }
+        });
+    }
+
+    public void setLostConnection(){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                setErrorMessage("Utraciłeś połączenie, uruchom gre jeszcze raz");
             }
         });
     }
