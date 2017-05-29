@@ -1,9 +1,7 @@
-package test.field
-
-import model.Board;
 import model.FieldType;
 import org.junit.Before;
 import org.junit.Test;
+import model.Board;
 import model.Orientation;
 import model.Ship;
 
