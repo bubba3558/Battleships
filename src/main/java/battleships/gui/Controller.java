@@ -1,7 +1,7 @@
-package gui;
+package battleships.gui;
 
-import exception.CollisionException;
-import exception.OutOfBoardException;
+import battleships.exception.CollisionException;
+import battleships.exception.OutOfBoardException;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -14,10 +14,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Shape;
-import model.Game;
-import model.GameMessageType;
-import model.Orientation;
-import model.Point;
+import battleships.model.Game;
+import battleships.model.GameMessageType;
+import battleships.model.Orientation;
+import battleships.model.Point;
 
 import java.net.URL;
 import java.util.ArrayList;

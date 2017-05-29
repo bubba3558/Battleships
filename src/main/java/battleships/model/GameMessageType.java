@@ -1,4 +1,4 @@
-package model;
+package battleships.model;
 
 public enum GameMessageType {
     opponentPlacedHisShips,

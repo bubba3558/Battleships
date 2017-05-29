@@ -1,8 +1,8 @@
-package gui;
+package battleships.gui;
 
-import model.Game;
-import network.ErrorType;
-import network.NetworkManager;
+import battleships.model.Game;
+import battleships.network.ErrorType;
+import battleships.network.NetworkManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -128,7 +128,7 @@ public class LoginController implements LoggingInterface {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/gameScene.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/src/battleships/resources/fxml/gameScene.fxml"));
                 Parent root = null;
                 try {
                     root = loader.load();

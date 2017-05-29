@@ -1,4 +1,4 @@
-package network;
+package battleships.network;
 
 
 public enum MessageType {

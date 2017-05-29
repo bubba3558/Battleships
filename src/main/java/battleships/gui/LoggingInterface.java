@@ -1,7 +1,7 @@
-package gui;
+package battleships.gui;
 
 
-import network.ErrorType;
+import battleships.network.ErrorType;
 
 public interface LoggingInterface {
 

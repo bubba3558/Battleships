@@ -1,4 +1,4 @@
-package gui;
+package battleships.gui;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;

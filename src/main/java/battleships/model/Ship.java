@@ -1,4 +1,4 @@
-package model;
+package battleships.model;
 
 public class Ship {
     private int size;

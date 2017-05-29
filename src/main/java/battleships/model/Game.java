@@ -1,14 +1,14 @@
-package model;
+package battleships.model;
 
-import exception.CollisionException;
-import exception.OutOfBoardException;
-import gui.GameControllerInterface;
-import network.Message;
-import network.NetworkManager;
+import battleships.exception.CollisionException;
+import battleships.exception.OutOfBoardException;
+import battleships.gui.GameControllerInterface;
+import battleships.network.Message;
+import battleships.network.NetworkManager;
 
-import static model.GameMessageType.opponentPlacedHisShips;
-import static model.GameMessageType.waitForOpponentMove;
-import static model.GameMessageType.yourTurn;
+import static battleships.model.GameMessageType.opponentPlacedHisShips;
+import static battleships.model.GameMessageType.waitForOpponentMove;
+import static battleships.model.GameMessageType.yourTurn;
 
 public class Game {
     public static final int BOARDHIGHT = 15;

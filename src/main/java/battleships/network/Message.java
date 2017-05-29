@@ -1,6 +1,6 @@
-package network;
+package battleships.network;
 
-import model.Orientation;
+import battleships.model.Orientation;
 
 import java.io.Serializable;
 

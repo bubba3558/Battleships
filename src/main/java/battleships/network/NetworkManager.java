@@ -1,7 +1,7 @@
-package network;
+package battleships.network;
 
-import gui.LoggingInterface;
-import model.Game;
+import battleships.gui.LoggingInterface;
+import battleships.model.Game;
 
 import java.io.*;
 import java.net.ServerSocket;

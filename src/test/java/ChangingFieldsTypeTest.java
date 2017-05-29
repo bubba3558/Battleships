@@ -1,9 +1,8 @@
-import model.FieldType;
+package battleships.model;
+
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import model.Board;
-import model.Orientation;
-import model.Ship;
 
 import static org.junit.Assert.assertEquals;
 
@@ -23,7 +22,7 @@ public class ChangingFieldsTypeTest {
     @Test
     public void testFieldsWorksCorrectly() {
         try {
-            assertEquals("Before placement a ship field type = empty", board.getFieldType(0, 0), FieldType.EMPTY);
+            Assert.assertEquals("Before placement a ship field type = empty", board.getFieldType(0, 0), FieldType.EMPTY);
             assertEquals("Before placement a ship field type = empty", board.getFieldType(0, 1), FieldType.EMPTY);
             board.placeShip(0, 0, ship1);
             assertEquals("After placement a ship field type = ship", board.getFieldType(0, 0), FieldType.WITHSHIP);

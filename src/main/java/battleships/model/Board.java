@@ -1,7 +1,7 @@
-package model;
+package battleships.model;
 
-import exception.CollisionException;
-import exception.OutOfBoardException;
+import battleships.exception.CollisionException;
+import battleships.exception.OutOfBoardException;
 
 
 public class Board {
