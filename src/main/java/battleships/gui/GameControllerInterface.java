@@ -1,7 +1,7 @@
-package gui;
+package battleships.gui;
 
-import model.GameMessageType;
-import model.Orientation;
+import battleships.model.GameMessageType;
+import battleships.model.Orientation;
 
 public interface GameControllerInterface {
 

@@ -1,4 +1,4 @@
-package gui;
+package battleships.gui;
 
 import javafx.scene.layout.Pane;
 
