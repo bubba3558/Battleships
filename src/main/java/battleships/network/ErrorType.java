@@ -4,7 +4,5 @@ public enum ErrorType {
     connectionTimeOut,
     couldNotCreateStream,
     getCouldNotCreateInputStream,
-    lostConnection,
-    unrecognisableMessageRecived,
 }
 
