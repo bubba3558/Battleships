@@ -13,7 +13,7 @@ public class Main extends Application {
     private LoginController controller;
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/fxml/login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
         Parent root = loader.load();
         controller = (LoginController) loader.getController();
         Scene scene = new Scene(root);
