@@ -1,4 +1,4 @@
-package test.java;
+package test.board;
 
 import model.Board;
 import model.Orientation;
