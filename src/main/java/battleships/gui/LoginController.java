@@ -128,7 +128,7 @@ public class LoginController implements LoggingInterface {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/src/battleships/resources/fxml/gameScene.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/gameScene.fxml"));
                 Parent root = null;
                 try {
                     root = loader.load();
