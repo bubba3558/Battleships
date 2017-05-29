@@ -32,6 +32,7 @@
                     <archive>
                         <manifest>
                             <mainClass>model.Main</mainClass>
+                            <mainClass>battleships.model.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

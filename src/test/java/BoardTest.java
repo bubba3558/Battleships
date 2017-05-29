@@ -1,9 +1,6 @@
-package test.java;
+package battleships.model;
 
-import model.Board;
-import model.Orientation;
-import model.Ship;
-import exception.OutOfBoardException;
+import battleships.exception.OutOfBoardException;
 import org.junit.Before;
 import org.junit.Test;
 
